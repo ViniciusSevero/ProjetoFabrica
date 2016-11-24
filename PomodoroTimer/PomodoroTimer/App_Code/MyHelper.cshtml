@@ -8,7 +8,12 @@
     }
 }
 
-@helper InputSubmit(string value, string classe)
+@helper Button(string value, string classe)
 { 
     <input type="button" value="@value" id="@value" class="@classe" />    
+}
+
+@helper InputSubmit(string value, string classe)
+{
+    <input type="submit" value="@value" id="@value" class="@classe" />
 }
