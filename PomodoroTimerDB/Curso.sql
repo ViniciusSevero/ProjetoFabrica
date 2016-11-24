@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Curso]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Nome] VARCHAR(150) NOT NULL
+)

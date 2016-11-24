@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PomodoroTimer", "PomodoroTimer\PomodoroTimer.csproj", "{68E00C65-31A3-45C6-B3BD-EEE9B0F39FE4}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PomodoroTimerDB", "..\PomodoroTimerDB\PomodoroTimerDB.sqlproj", "{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68E00C65-31A3-45C6-B3BD-EEE9B0F39FE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E00C65-31A3-45C6-B3BD-EEE9B0F39FE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E00C65-31A3-45C6-B3BD-EEE9B0F39FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E00C65-31A3-45C6-B3BD-EEE9B0F39FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF81F6D7-8F45-42DF-9A83-3EF3EC454414}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
