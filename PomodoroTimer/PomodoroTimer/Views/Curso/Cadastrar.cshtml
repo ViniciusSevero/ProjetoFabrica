@@ -22,19 +22,15 @@
 
 @section Scripts{
     <script>
+        var isValid = false;
+
         $(document).ready(function () {
-            $("#Nome").focusout(function () {
+            $("#Cadastrar").click(function () {
                 validarNome();
             });
-            $("form").submit(function () {
-                if (validarNome() == true) {
-                    $("form").submit();
-                }
-            })
         });
 
         function validarNome() {
-            var isValid = false;
             $.ajax({
                 url: "http://localhost:39324/Curso/VerificarNome",
                 type: "GET",
@@ -45,13 +41,10 @@
                         $("#Nome").focus();
                         $("#Nome").parent().find(".field-validation-valid").text("Esse curso já está cadastrado");
                     } else {
-                        $("#Nome").parent().removeClass("has-error");
-                        $("#Nome").parent().find(".field-validation-valid").text("");
-                        isValid = true;
+                        $("form").submit();
                     }
                 }
             });
-            return isValid;
         }
-    </script>
+</script>
 }
