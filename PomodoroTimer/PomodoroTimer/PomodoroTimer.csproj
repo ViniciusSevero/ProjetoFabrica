@@ -207,6 +207,7 @@
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\MateriaController.cs" />
+    <Compile Include="Controllers\SesssaoController.cs" />
     <Compile Include="Controllers\TipoSessaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -235,6 +236,9 @@
     <Compile Include="Models\Materia.cs">
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sessao.cs">
+      <DependentUpon>Banco.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TipoSessao.cs">
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
@@ -245,6 +249,7 @@
     <Compile Include="ViewModels\AlunoViewModel.cs" />
     <Compile Include="ViewModels\CursoViewModel.cs" />
     <Compile Include="ViewModels\MateriaViewModel.cs" />
+    <Compile Include="ViewModels\SessaoViewModel.cs" />
     <Compile Include="ViewModels\TipoSessaoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +274,8 @@
     <Content Include="Views\Materia\Cadastrar.cshtml" />
     <Content Include="Views\Aluno\Cadastrar.cshtml" />
     <Content Include="Views\TipoSessao\Cadastrar.cshtml" />
+    <Content Include="Views\Sesssao\Index.cshtml" />
+    <Content Include="Views\Sesssao\_modalRelogio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

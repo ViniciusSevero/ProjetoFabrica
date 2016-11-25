@@ -11,6 +11,10 @@
         <EntityTypeShape EntityType="PomodoroTimerDBModel.TipoSessao" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Aluno_Curso" ManuallyRouted="false" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Materia_Curso" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PomodoroTimerDBModel.Sessao" Width="1.5" PointX="8" PointY="2.125" />
+        <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Aluno" />
+        <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Materia" />
+        <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Tipo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

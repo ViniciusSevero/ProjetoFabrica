@@ -63,5 +63,6 @@
     <Build Include="Materia.sql" />
     <Build Include="Aluno.sql" />
     <Build Include="TipoSessao.sql" />
+    <Build Include="Sessao.sql" />
   </ItemGroup>
 </Project>

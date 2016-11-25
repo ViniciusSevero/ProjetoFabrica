@@ -29,5 +29,6 @@ namespace PomodoroTimer.Models
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<Materia> Materia { get; set; }
         public virtual DbSet<TipoSessao> TipoSessao { get; set; }
+        public virtual DbSet<Sessao> Sessao { get; set; }
     }
 }

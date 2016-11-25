@@ -14,6 +14,12 @@ namespace PomodoroTimer.Models
     
     public partial class Aluno
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Aluno()
+        {
+            this.Sessao = new HashSet<Sessao>();
+        }
+    
         public int Id { get; set; }
         public string Nome { get; set; }
         public int Rm { get; set; }
@@ -21,5 +27,7 @@ namespace PomodoroTimer.Models
         public int CursoId { get; set; }
     
         public virtual Curso Curso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sessao> Sessao { get; set; }
     }
 }
