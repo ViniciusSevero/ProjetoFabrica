@@ -207,7 +207,7 @@
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
     <Compile Include="Controllers\MateriaController.cs" />
-    <Compile Include="Controllers\SesssaoController.cs" />
+    <Compile Include="Controllers\SessaoController.cs" />
     <Compile Include="Controllers\TipoSessaoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,8 +274,8 @@
     <Content Include="Views\Materia\Cadastrar.cshtml" />
     <Content Include="Views\Aluno\Cadastrar.cshtml" />
     <Content Include="Views\TipoSessao\Cadastrar.cshtml" />
-    <Content Include="Views\Sesssao\Index.cshtml" />
-    <Content Include="Views\Sesssao\_modalRelogio.cshtml" />
+    <Content Include="Views\Sessao\Index.cshtml" />
+    <Content Include="Views\Sessao\_modalRelogio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,244 @@
+﻿@model PomodoroTimer.ViewModels.SessaoViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Estilo{
+    <style>
+        .digital {
+            list-style: none;
+            padding: 0;
+        }
+
+            .digital > li {
+                font-size: 30px;
+                font-family: Tahoma;
+                font-weight: bold;
+                display: inline-block;
+            }
+
+        .relogio {
+            width: 500px;
+            height: 500px;
+            border: solid 30px #000;
+            border-radius: 50%;
+            margin: 25px auto;
+            position: relative;
+        }
+
+        #ponteiroSegundo {
+            width: 6px;
+            height: 210px; /* metade width do relogio - margin do ponteiro * 2*/
+            background-color: coral;
+            margin: 25px 217px; /* (width relogio - width ponteiro) / 2*/
+            position: absolute;
+            box-shadow: 1px 1px 2px;
+            border-radius: 10px;
+            transform-origin: 3px bottom;
+        }
+
+        #ponteiroMinuto {
+            width: 16px;
+            height: 210px;
+            background-color: #000;
+            margin: 25px 212px;
+            position: absolute;
+            box-shadow: 1px 1px 2px;
+            border-radius: 10px;
+            transform-origin: 8px bottom; /* rodar na metade do width(centro do ponteiro)*/
+        }
+
+        #ponteiroHora {
+            width: 16px;
+            height: 105px;
+            background-color: #000;
+            margin: 130px 212px;
+            position: absolute;
+            box-shadow: 1px 1px 2px;
+            border-radius: 10px;
+            transform-origin: 8px bottom; /* rodar na metade do width(centro do ponteiro)*/
+        }
+
+        #centro {
+            width: 30px;
+            height: 30px;
+            background-color: #000;
+            margin: 220px 205px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        select {
+            width: 100%;
+        }
+    </style>
+}
+
+<div class="container">
+
+    @MyHelper.Message(Model.Msg)
+
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <h2>Sessão</h2>
+            @using (@Html.BeginForm())
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TipoId)
+                    @Html.DropDownListFor(m => m.TipoId, Model.TiposSessao, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TipoId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MateriaId)
+                    @Html.DropDownListFor(m => m.MateriaId, Model.Materias, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.MateriaId)
+                </div>
+                <div class="form-group">
+                    <h3 id="tempoEstudo">Tempo de Estudo:</h3>
+                    <h3 id="tempoDescanso">Tempo de Descanso:</h3>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="col-md-8">
+
+            @Html.Partial("_modalRelogio")
+
+        </div>
+    </div>
+
+    @section Scripts{
+        <script>
+            $(document).ready(function () {
+                //limpar erros
+                $("select").change(function () {
+                    $(this).parent().removeClass("has-error");
+                    $(this).parent().find(".field-validation-valid").text("");
+                });
+
+                $("#TipoId").change(function () {
+                    if ($(this).val() != "") {
+                        $.ajax({
+                            url: "http://localhost:39324/Sessao/PegarTempoSessao",
+                            type: "GET",
+                            data: { "tipo": $(this).val() },
+                            success: function (data) {
+                                $("#tempoEstudo").text("Tempo de Estudo:" + data.estudo + "min.");
+                                $("#tempoDescanso").text("Tempo de Descanso:" + data.descanso + "min.");
+                                tempoAlarmeMin = data.estudo;
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            var h = 0;
+            var m = 0;
+            var s = 0;
+            var timer;
+            var fundo = 0;
+            var tempoAlarmeMin;
+
+            //var audio = document.getElementById('audio');
+
+            // function play() {
+            //  audio.play();
+            // }
+
+
+            function tempo() {
+                if (h == 23 && m == 59 && s == 59) {
+                    h = 0;
+                    m = 0;
+                    s = 0;
+                } else if (m == 59 && s == 59) {
+                    m = 0;
+                    s = 0;
+                    h++;
+                } else if (s == 59) {
+                    s = 0;
+                    m++;
+                } else {
+                    s++;
+                }
+
+                atualizarElementos();
+
+
+                var tempoCorridoMin = (h * 60) + m;
+                if (tempoCorridoMin == tempoAlarmeMin) {
+                    //play();
+                    alert("Acabou o tempo!");
+                    pause();
+                }
+            }
+
+            function setarTempoAlarme(min) {
+                tempoAlarmeMin = min;
+            }
+
+            function start() {
+                if ($("#TipoId").val() != "" && $("#MateriaId").val() != "") {
+                    timer = setInterval('tempo()', 1000);
+                    document.getElementById("start").disabled = true;
+                } else {
+                    if ($("#TipoId").val() == "") {
+                        $("#TipoId").parent().addClass("has-error");
+                        $("#TipoId").parent().find(".field-validation-valid").text("Selecione um Tipo de Sessão");
+                    }
+                    if ($("#MateriaId").val() == "") {
+                        $("#MateriaId").parent().addClass("has-error");
+                        $("#MateriaId").parent().find(".field-validation-valid").text("Selecione uma matéria");
+                    }
+                }
+            }
+
+            function stop() {
+                clearInterval(timer);
+                document.getElementById("start").disabled = false;
+                h = 0;
+                m = 0;
+                s = 0;
+
+                atualizarElementos();
+            }
+
+            function pause() {
+                clearInterval(timer);
+                document.getElementById("start").disabled = false;
+            }
+
+            function atualizarElementos() {
+                $("#ponteiroSegundo").css("transform", "rotate(" + (s * 6) + "deg)");
+                $("#ponteiroMinuto").css("transform", "rotate(" + (m * 6) + "deg)");
+                $("#ponteiroHora").css("transform", "rotate(" + (h * 30) + "deg)");
+
+                if (h < 10) {
+                    document.getElementById('horas').innerHTML = '0' + h;
+                } else {
+                    document.getElementById('horas').innerHTML = h;
+                }
+
+                if (m < 10) {
+                    document.getElementById('minutos').innerHTML = '0' + m;
+                } else {
+                    document.getElementById('minutos').innerHTML = m;
+                }
+
+                if (s < 10) {
+                    document.getElementById('segundos').innerHTML = '0' + s;
+                } else {
+                    document.getElementById('segundos').innerHTML = s;
+                }
+
+            }
+        </script>
+    }
+
+</div>

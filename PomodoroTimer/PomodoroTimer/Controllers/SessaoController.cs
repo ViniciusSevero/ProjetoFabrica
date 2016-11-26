@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace PomodoroTimer.Controllers
 {
-    public class SesssaoController : Controller
+    public class SessaoController : Controller
     {
         private UnitOfWork _unit = new UnitOfWork();
 
@@ -37,6 +37,14 @@ namespace PomodoroTimer.Controllers
             //agora é só Mock
             List<Materia> lista = (List<Materia>)_unit.MateriaRepository.Listar();
             return new SelectList(lista, "Id", "Nome");
+        }
+        #endregion
+
+        #region AJAX
+        public ActionResult PegarTempoSessao(int tipo)
+        {
+            var tipoSessao = _unit.TipoSessaoRepository.BuscarPorId(tipo);
+            return Json(new { estudo = tipoSessao.TempoEstudo, descanso = tipoSessao.TempoDescanso }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }
