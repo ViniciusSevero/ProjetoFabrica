@@ -13,17 +13,6 @@ namespace PomodoroTimer.Controllers
     {
         private UnitOfWork _unit = new UnitOfWork();
 
-        public ActionResult Index2()
-        {
-            SessaoViewModel sessaoVM = new SessaoViewModel()
-            {
-                Materias = carregarMaterias(),
-                TiposSessao = carregarTipos()
-            };
-            return View(sessaoVM);
-        }
-
-        // GET: Sesssao
         public ActionResult Index()
         {
             SessaoViewModel sessaoVM = new SessaoViewModel()
@@ -34,6 +23,7 @@ namespace PomodoroTimer.Controllers
             return View(sessaoVM);
         }
 
+        
 
         #region
         public SelectList carregarTipos()

@@ -231,8 +231,6 @@
     <Content Include="Views\Aluno\Cadastrar.cshtml" />
     <Content Include="Views\TipoSessao\Cadastrar.cshtml" />
     <Content Include="Views\Sessao\Index.cshtml" />
-    <Content Include="Views\Sessao\_modalRelogio.cshtml" />
-    <Content Include="Views\Sessao\Index2.cshtml" />
     <Content Include="Views\Sessao\_modalRelogio2.cshtml" />
     <Content Include="Views\Sessao\_Audios.cshtml" />
     <None Include="Web.Debug.config">
