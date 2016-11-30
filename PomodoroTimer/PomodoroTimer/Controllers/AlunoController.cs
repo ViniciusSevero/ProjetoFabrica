@@ -1,5 +1,5 @@
-﻿using PomodoroTimer.Models;
-using PomodoroTimer.UnitsOfWork;
+﻿using PomodoroTimerDominio.Models;
+using PomodoroTimerPersistencia.UnitsOfWork;
 using PomodoroTimer.ViewModels;
 using System;
 using System.Collections.Generic;
