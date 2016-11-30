@@ -32,11 +32,14 @@
                             <li> @Html.ActionLink("Materia", "Cadastrar", "Materia")</li>
                             <li> @Html.ActionLink("Tipo de Sessão", "Cadastrar", "TipoSessao")</li>
                         </ul>
+                    <li> @Html.ActionLink("Iniciar Sessão", "Index2", "Sessao")</li>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+
+    @RenderSection("messageFluid",false)
 
     <div class="container body-content">
         @RenderBody()

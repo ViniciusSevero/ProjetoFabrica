@@ -127,6 +127,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\audios\Sinal-de-Alerta.mp3" />
+    <Content Include="Content\audios\Soar-atencao-30-segundos.mp3" />
+    <Content Include="Content\audios\Soar-atencao-falta-1-minuto.mp3" />
+    <Content Include="Content\audios\Soar-atencao-faltam-5-minutos.mp3" />
+    <Content Include="Content\audios\Soar-hora-de-descansar.mp3" />
+    <Content Include="Content\audios\Soar-sessao-concluida.mp3" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -226,6 +232,9 @@
     <Content Include="Views\TipoSessao\Cadastrar.cshtml" />
     <Content Include="Views\Sessao\Index.cshtml" />
     <Content Include="Views\Sessao\_modalRelogio.cshtml" />
+    <Content Include="Views\Sessao\Index2.cshtml" />
+    <Content Include="Views\Sessao\_modalRelogio2.cshtml" />
+    <Content Include="Views\Sessao\_Audios.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
