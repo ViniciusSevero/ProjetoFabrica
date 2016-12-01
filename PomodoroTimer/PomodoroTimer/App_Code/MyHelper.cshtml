@@ -8,6 +8,16 @@
     }
 }
 
+@helper MessageError(string msg)
+{
+if (msg != null)
+{
+        <div class="alert alert-danger">
+            @msg
+        </div>
+}
+}
+
 @helper Button(string value, string classe)
 { 
     <input type="button" value="@value" id="@value" class="@classe" />    

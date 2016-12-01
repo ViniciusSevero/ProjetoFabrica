@@ -5,5 +5,7 @@
     [Rm] INT NOT NULL, 
     [DtNascimento] DATE NOT NULL, 
     [CursoId] INT NOT NULL, 
-    CONSTRAINT [FK_Aluno_Curso] FOREIGN KEY ([CursoId]) REFERENCES [Curso]([Id]),
+    [LoginId] INT NOT NULL, 
+    CONSTRAINT [FK_Aluno_Curso] FOREIGN KEY ([CursoId]) REFERENCES [Curso]([Id]), 
+    CONSTRAINT [FK_Aluno_Login] FOREIGN KEY (LoginId) REFERENCES [Login]([Id]),
 )

@@ -9,7 +9,7 @@
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
-    @RenderSection("Estilo",false)
+    @RenderSection("Estilo", false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,23 +23,41 @@
                 @Html.ActionLink("Pomodoro Timer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Aluno", "Cadastrar", "Aluno")</li>
-                            <li> @Html.ActionLink("Curso", "Cadastrar", "Curso")</li>
-                            <li> @Html.ActionLink("Materia", "Cadastrar", "Materia")</li>
-                            <li> @Html.ActionLink("Tipo de Sessão", "Cadastrar", "TipoSessao")</li>
-                        </ul>
-                    <li> @Html.ActionLink("Iniciar Sessão", "Index2", "Sessao")</li>
-                    </li>
-                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Aluno", "Cadastrar", "Aluno")</li>
+                                <li> @Html.ActionLink("Curso", "Cadastrar", "Curso")</li>
+                                <li> @Html.ActionLink("Materia", "Cadastrar", "Materia")</li>
+                                <li> @Html.ActionLink("Tipo de Sessão", "Cadastrar", "TipoSessao")</li>
+                            </ul>
+                        </li>
+                        <li> @Html.ActionLink("Iniciar Sessão", "Index", "Sessao")</li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Olá @User.Identity.Name<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Sair", "Sair", "Autenticador")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Logar", "Logar", "Autenticador")</li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
 
-    @RenderSection("messageFluid",false)
+    @RenderSection("messageFluid", false)
 
     <div class="container body-content">
         @RenderBody()

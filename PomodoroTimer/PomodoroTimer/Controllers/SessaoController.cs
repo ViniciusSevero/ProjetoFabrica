@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Filtros.Security;
 
 namespace PomodoroTimer.Controllers
 {
+    [PermissoesFiltro(Roles = "ALUNO")]
     public class SessaoController : Controller
     {
         private UnitOfWork _unit = new UnitOfWork();
@@ -33,10 +35,12 @@ namespace PomodoroTimer.Controllers
         }
         public SelectList carregarMaterias()
         {
-            //vou pegar as materias do curso do Aluno logado
-            //agora é só Mock
-            List<Materia> lista = (List<Materia>)_unit.MateriaRepository.Listar();
-            return new SelectList(lista, "Id", "Nome");
+                var userName = User.Identity.Name;
+                int loginId = _unit.LoginRepository.BuscarPor(l => l.Username == userName).FirstOrDefault().Id;
+                Aluno aluno = _unit.AlunoRepository.BuscarPor(a => a.LoginId == loginId).FirstOrDefault();
+
+                ICollection<Materia> lista = (ICollection<Materia>) aluno.Curso.Materia;
+                return new SelectList(lista, "Id", "Nome"); 
         }
         #endregion
 

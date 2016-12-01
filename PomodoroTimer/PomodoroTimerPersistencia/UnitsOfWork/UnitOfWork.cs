@@ -15,6 +15,21 @@ namespace PomodoroTimerPersistencia.UnitsOfWork
         private IRepository<Curso> _cursoRepository;
         private IRepository<Materia> _materiaRepository;
         private IRepository<TipoSessao> _tipoSessaoRepository;
+        private LoginRepository _loginRepository;
+
+
+        public LoginRepository LoginRepository
+        {
+            get
+            {
+                if (_loginRepository == null)
+                {
+                    _loginRepository = new LoginRepository(_context);
+                }
+                return _loginRepository;
+            }
+            set { _loginRepository = value; }
+        }
 
         public IRepository<Aluno> AlunoRepository
         {
@@ -22,7 +37,7 @@ namespace PomodoroTimerPersistencia.UnitsOfWork
             {
                 if (_alunoRepository == null)
                 {
-                    _alunoRepository = new GenericRepository<Aluno>(_context);
+                    _alunoRepository = new AlunoRepository(_context);
                 }
                 return _alunoRepository;
             }

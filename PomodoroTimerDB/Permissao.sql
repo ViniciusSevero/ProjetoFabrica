@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Permissao]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Permissao] NVARCHAR(150) NOT NULL,
+
+)

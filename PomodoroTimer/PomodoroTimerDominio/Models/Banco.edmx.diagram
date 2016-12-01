@@ -15,6 +15,10 @@
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Aluno" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Materia" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Tipo" />
+        <EntityTypeShape EntityType="PomodoroTimerDBModel.Login" Width="1.5" PointX="5.375" PointY="5.875" />
+        <EntityTypeShape EntityType="PomodoroTimerDBModel.Permissao" Width="1.5" PointX="7.625" PointY="6.125" />
+        <AssociationConnector Association="PomodoroTimerDBModel.FK_Aluno_Login" />
+        <AssociationConnector Association="PomodoroTimerDBModel.LoginPermissao" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

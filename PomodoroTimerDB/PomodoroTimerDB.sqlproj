@@ -64,5 +64,11 @@
     <Build Include="Aluno.sql" />
     <Build Include="TipoSessao.sql" />
     <Build Include="Sessao.sql" />
+    <Build Include="Permissao.sql" />
+    <Build Include="Login.sql" />
+    <Build Include="LoginPermissao.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PomodoroTimerDB.refactorlog" />
   </ItemGroup>
 </Project>

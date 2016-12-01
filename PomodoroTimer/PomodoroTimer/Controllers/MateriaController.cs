@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Filtros.Security;
 
 namespace PomodoroTimer.Controllers
 {
+    [PermissoesFiltro(Roles = "ADMIN")]
     public class MateriaController : Controller
     {
         private UnitOfWork _unit = new UnitOfWork();

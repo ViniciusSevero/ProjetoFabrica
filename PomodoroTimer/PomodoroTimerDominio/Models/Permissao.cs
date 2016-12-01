@@ -12,24 +12,18 @@ namespace PomodoroTimerDominio.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Aluno
+    public partial class Permissao
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Aluno()
+        public Permissao()
         {
-            this.Sessao = new HashSet<Sessao>();
+            this.Login = new HashSet<Login>();
         }
     
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public int Rm { get; set; }
-        public System.DateTime DtNascimento { get; set; }
-        public int CursoId { get; set; }
-        public int LoginId { get; set; }
+        public string Permissao1 { get; set; }
     
-        public virtual Curso Curso { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sessao> Sessao { get; set; }
-        public virtual Login Login { get; set; }
+        public virtual ICollection<Login> Login { get; set; }
     }
 }
