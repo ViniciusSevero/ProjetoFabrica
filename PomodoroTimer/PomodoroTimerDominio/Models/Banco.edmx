@@ -62,6 +62,7 @@
           <Property Name="TipoId" Type="int" Nullable="false" />
           <Property Name="AlunoId" Type="int" Nullable="false" />
           <Property Name="MateriaId" Type="int" Nullable="false" />
+          <Property Name="Observacao" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="TipoSessao">
           <Key>
@@ -331,6 +332,7 @@
           <NavigationProperty Name="Aluno" Relationship="PomodoroTimerDBModel.FK_Sessao_Aluno" FromRole="Sessao" ToRole="Aluno" />
           <NavigationProperty Name="Materia" Relationship="PomodoroTimerDBModel.FK_Sessao_Materia" FromRole="Sessao" ToRole="Materia" />
           <NavigationProperty Name="TipoSessao" Relationship="PomodoroTimerDBModel.FK_Sessao_Tipo" FromRole="Sessao" ToRole="TipoSessao" />
+          <Property Name="Observacao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Sessao_Aluno">
           <End Type="PomodoroTimerDBModel.Aluno" Role="Aluno" Multiplicity="1" />
@@ -451,6 +453,7 @@
           <EntitySetMapping Name="Sessao">
             <EntityTypeMapping TypeName="PomodoroTimerDBModel.Sessao">
               <MappingFragment StoreEntitySet="Sessao">
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
                 <ScalarProperty Name="MateriaId" ColumnName="MateriaId" />
                 <ScalarProperty Name="AlunoId" ColumnName="AlunoId" />
                 <ScalarProperty Name="TipoId" ColumnName="TipoId" />

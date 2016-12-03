@@ -19,6 +19,7 @@ namespace PomodoroTimer.Controllers
         {
             SessaoViewModel sessaoVM = new SessaoViewModel()
             {
+                AlunoId = getAlunoLoginSessao().Id,
                 Materias = carregarMaterias(),
                 TiposSessao = carregarTipos()
             };
@@ -27,7 +28,7 @@ namespace PomodoroTimer.Controllers
 
         
 
-        #region
+        #region UTILS
         public SelectList carregarTipos()
         {
             List<TipoSessao> lista = (List<TipoSessao>)_unit.TipoSessaoRepository.Listar();
@@ -35,12 +36,17 @@ namespace PomodoroTimer.Controllers
         }
         public SelectList carregarMaterias()
         {
-                var userName = User.Identity.Name;
-                int loginId = _unit.LoginRepository.BuscarPor(l => l.Username == userName).FirstOrDefault().Id;
-                Aluno aluno = _unit.AlunoRepository.BuscarPor(a => a.LoginId == loginId).FirstOrDefault();
+            Aluno aluno = getAlunoLoginSessao();
 
-                ICollection<Materia> lista = (ICollection<Materia>) aluno.Curso.Materia;
-                return new SelectList(lista, "Id", "Nome"); 
+            ICollection<Materia> lista = (ICollection<Materia>) aluno.Curso.Materia;
+            return new SelectList(lista, "Id", "Nome"); 
+        }
+
+        public Aluno getAlunoLoginSessao()
+        {
+            var userName = User.Identity.Name;
+            int loginId = _unit.LoginRepository.BuscarPor(l => l.Username == userName).FirstOrDefault().Id;
+            return _unit.AlunoRepository.BuscarPor(a => a.LoginId == loginId).FirstOrDefault();
         }
         #endregion
 

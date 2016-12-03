@@ -1,6 +1,7 @@
 ﻿using Filtros.Security;
 using PomodoroTimer.ViewModels;
 using PomodoroTimerDominio.Models;
+using PomodoroTimerPersistencia.Repositories;
 using PomodoroTimerPersistencia.UnitsOfWork;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace PomodoroTimer.Controllers
         [HttpPost]
         public ActionResult Logar(LoginViewModel login)
         {
-            Login l = _unit.LoginRepository.ValidarLogin(login.Username, login.Senha);
+            LoginRepository loginRepository = (LoginRepository) _unit.LoginRepository;
+            Login l = loginRepository.ValidarLogin(login.Username, login.Senha);
 
             if (l != null)
             {

@@ -15,10 +15,25 @@ namespace PomodoroTimerPersistencia.UnitsOfWork
         private IRepository<Curso> _cursoRepository;
         private IRepository<Materia> _materiaRepository;
         private IRepository<TipoSessao> _tipoSessaoRepository;
-        private LoginRepository _loginRepository;
+        private IRepository<Login> _loginRepository;
+        private IRepository<Sessao> _sessaoRepository;
+
+        public IRepository<Sessao> SessaoRepository
+        {
+            get
+            {
+                if (_sessaoRepository == null)
+                {
+                    _sessaoRepository = new GenericRepository<Sessao>(_context);
+                }
+                return _sessaoRepository;
+            }
+            set { _sessaoRepository = value; }
+        }
 
 
-        public LoginRepository LoginRepository
+
+        public IRepository<Login> LoginRepository
         {
             get
             {

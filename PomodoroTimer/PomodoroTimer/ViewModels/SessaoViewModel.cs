@@ -15,6 +15,7 @@ namespace PomodoroTimer.ViewModels
         public int AlunoId { get; set; }
         [Display(Name = "Matéria")]
         public int MateriaId { get; set; }
+        public String Observacao { get; set; }
 
         public SelectList TiposSessao { get; set; }
         public SelectList Materias { get; set; }

@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace PomodoroTimerPersistencia.Repositories
 {
-    public class LoginRepository : GenericRepository<Login>
+    public class LoginRepository : GenericRepository<Login>, IRepository<Login>
     {
         private Entities _ctx;
 
