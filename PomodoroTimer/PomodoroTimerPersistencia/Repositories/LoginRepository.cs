@@ -29,5 +29,15 @@ namespace PomodoroTimerPersistencia.Repositories
 
             return login;
         }
+
+        public void CadastrarADM(Login login)
+        {
+            Permissao permissaoADM = new GenericRepository<Permissao>(_ctx).BuscarPor(p => p.Permissao1 == "ADMIN").FirstOrDefault();
+            List<Permissao> permissoes = new List<Permissao>();
+            permissoes.Add(permissaoADM);
+            login.Permissao = permissoes;
+
+            _ctx.Login.Add(login);
+        }
     }
 }

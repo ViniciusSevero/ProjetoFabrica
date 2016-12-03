@@ -218,6 +218,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\AutenticadorController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\PermissaoProvider.cs" />
     <Compile Include="Security\PermissoesFiltro.cs" />
+    <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\AlunoViewModel.cs" />
     <Compile Include="ViewModels\CursoViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -257,6 +259,7 @@
     <Content Include="Views\Sessao\_Audios.cshtml" />
     <Content Include="Views\Autenticador\Logar.cshtml" />
     <Content Include="Views\Autenticador\Negado.cshtml" />
+    <Content Include="Views\Administrador\Cadastrar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
