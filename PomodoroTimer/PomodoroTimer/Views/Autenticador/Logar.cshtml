@@ -311,121 +311,127 @@
     </div><!--Fim container-->
 </section>
 
-<div class="container">
-    <div class="card card-container">
-        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-        <p id="profile-name" class="profile-name-card"></p>
-
-        @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
-        {
-            <span id="reauth-email" class="reauth-email"></span>
-
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
-            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
-            <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
-        }
-
-    </div><!-- /card-container -->
-</div><!-- /container -->
-
-
-
-@section Scripts{
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="~/Scripts/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="js/googlecharts.js"> </script>
-
-    <script type="text/javascript">
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-        google.charts.setOnLoadCallback(drawChart2);
-
-        function drawChart() {
-
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-              ['Variavel1', 3],
-              ['Variavel2', 1],
-              ['Variavel3', 1],
-              ['Variavel4', 1],
-              ['Variavel5', 2]
-            ]);
-
-            var options = {
-                'title': 'Titulo do Gráfico',
-                'width': 500,
-                'height': 400,
-                //'is3D': true deixa o grafico em 3D
-                //'legend':'left' controlar a posicao da legenda
-                'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
-            };
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
-
-        function drawChart2() {
-
-            // Create the data table.
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
-            data.addColumn('number', 'Slices');
-            data.addRows([
-              ['Variavel1', 3],
-              ['Variavel2', 1],
-              ['Variavel3', 1],
-              ['Variavel4', 1],
-              ['Variavel5', 2]
-            ]);
-
-            var options = {
-                'title': 'Titulo do Gráfico',
-                'width': 500,
-                'height': 400,
-                //'is3D': true deixa o grafico em 3D
-                //'legend':'left' controlar a posicao da legenda
-                'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
-            };
-
-            // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
-            chart.draw(data, options);
-        }
+<!--modalLogar-->
+    <div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
+        <div class="modal-dialog" role="document">
+             <div class="container">
+                  <div class="card card-container">
+                   <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+                      <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                       <p id="profile-name" class="profile-name-card"></p>
+                          @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
+                            {
+                               <span id="reauth-email" class="reauth-email"></span>
+                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
+                                @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
+                                <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
+                            }
+                   </div><!-- /card-container -->
+              </div>
+        </div>
+    </div>
+    <!--Fim modal-->
 
 
 
 
 
 
+    @section Scripts{
 
-        //jQuery to collapse the navbar on scroll
-        $(window).scroll(function () {
-            if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
-                $(".navbar-fixed-top").addClass("top-nav-collapse");
-            } else {
-                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="~/Scripts/jquery.easing.min.js"></script>
+        <script type="text/javascript" src="js/googlecharts.js"> </script>
+
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawChart2);
+
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
+                  ['Variavel1', 3],
+                  ['Variavel2', 1],
+                  ['Variavel3', 1],
+                  ['Variavel4', 1],
+                  ['Variavel5', 2]
+                ]);
+
+                var options = {
+                    'title': 'Titulo do Gráfico',
+                    'width': 500,
+                    'height': 400,
+                    //'is3D': true deixa o grafico em 3D
+                    //'legend':'left' controlar a posicao da legenda
+                    'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
             }
-        });
 
-        //jQuery for page scrolling feature - requires jQuery Easing plugin
-        $(function () {
-            $('a.page-scroll').bind('click', function (event) {
-                var $anchor = $(this);
-                $('html, body').stop().animate({
-                    scrollTop: $($anchor.attr('href')).offset().top
-                }, 1500, 'easeInOutExpo');
-                event.preventDefault();
+            function drawChart2() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
+                  ['Variavel1', 3],
+                  ['Variavel2', 1],
+                  ['Variavel3', 1],
+                  ['Variavel4', 1],
+                  ['Variavel5', 2]
+                ]);
+
+                var options = {
+                    'title': 'Titulo do Gráfico',
+                    'width': 500,
+                    'height': 400,
+                    //'is3D': true deixa o grafico em 3D
+                    //'legend':'left' controlar a posicao da legenda
+                    'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
+                chart.draw(data, options);
+            }
+
+
+
+
+
+
+
+            //jQuery to collapse the navbar on scroll
+            $(window).scroll(function () {
+                if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
+                    $(".navbar-fixed-top").addClass("top-nav-collapse");
+                } else {
+                    $(".navbar-fixed-top").removeClass("top-nav-collapse");
+                }
             });
-        });
 
-    </script>
-}
+            //jQuery for page scrolling feature - requires jQuery Easing plugin
+            $(function () {
+                $('a.page-scroll').bind('click', function (event) {
+                    var $anchor = $(this);
+                    $('html, body').stop().animate({
+                        scrollTop: $($anchor.attr('href')).offset().top
+                    }, 1500, 'easeInOutExpo');
+                    event.preventDefault();
+                });
+            });
+
+        </script>
+    }
 
 
