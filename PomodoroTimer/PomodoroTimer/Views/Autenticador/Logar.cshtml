@@ -5,7 +5,63 @@
 
 @section Estilo{
     <style>
+        /*
+         * Navbar style
+         */
+        .navbar-custom {
+            background-color: #222;
+            border-color: transparent;
+        }
 
+            .navbar-custom .navbar-brand {
+                color: #fed136;
+                font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
+            }
+
+                .navbar-custom .navbar-brand.active, .navbar-custom .navbar-brand:active, .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:hover {
+                    color: #fec503;
+                }
+
+                .navbar-custom .navbar-brand.active, .navbar-custom .navbar-brand:active, .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:hover {
+                    color: #fec503;
+                }
+
+            .navbar-custom .nav li a, .navbar-custom .navbar-toggle {
+                font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                color: #fff;
+                text-transform: uppercase;
+            }
+
+            .navbar-custom .navbar-toggle {
+                background-color: #fed136;
+                border-color: #fed136;
+                font-size: 12px;
+            }
+
+                .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
+                    background-color: #fed136;
+                }
+
+            .navbar-custom .nav li a {
+                font-weight: 400;
+                letter-spacing: 1px;
+            }
+
+                .navbar-custom .nav li a:focus, .navbar-custom .nav li a:hover {
+                    color: #fed136;
+                    outline: 0;
+                }
+
+            .navbar-custom .navbar-nav > .active > a {
+                border-radius: 0;
+                color: #fff;
+                background-color: #fed136;
+            }
+
+                .navbar-custom .navbar-nav > .active > a:focus, .navbar-custom .navbar-nav > .active > a:hover {
+                    color: #fff;
+                    background-color: #fec503;
+                }
 
         .card-container.card {
             max-width: 350px;
@@ -20,6 +76,80 @@
             user-select: none;
             cursor: default;
         }
+        /*
+         * Header style
+         */
+        header {
+            min-height: 650px;
+            background-color: black;
+            background-image: url(../img/header-bg.jpg);
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            background-position: center center;
+            background-size: cover;
+            text-align: center;
+            color: #fff;
+        }
+
+            header .intro-text {
+                padding-top: 300px;
+                padding-bottom: 50px;
+            }
+
+                header .intro-text .intro-lead-in {
+                    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+                    font-style: italic;
+                    font-size: 22px;
+                    line-height: 22px;
+                    margin-bottom: 25px;
+                }
+
+                header .intro-text .intro-heading {
+                    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    font-size: 50px;
+                    line-height: 50px;
+                    margin-bottom: 25px;
+                }
+
+        .btn-pomodoro {
+            color: #fff;
+            background-color: #fed136;
+            border-color: #fed136;
+            border-radius: 3px;
+            font-size: 18px;
+            padding: 15px 25px 35px 25px;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: background-color .9s, color .9s;
+        }
+
+            .btn-pomodoro:hover {
+                background-color: #fff;
+                color: #fed136;
+            }
+        /*
+         * Section
+         */
+
+        section {
+            min-height: 600px;
+            padding: 100px 0;
+        }
+
+            section h2.section-heading {
+                font-size: 40px;
+                margin-top: 0;
+                margin-bottom: 15px;
+            }
+
+            section h3.section-subheading {
+                font-size: 16px;
+                text-transform: none;
+                font-weight: 400;
+                margin-bottom: 75px;
+            }
 
         /*
          * Card component
@@ -120,29 +250,182 @@
             -webkit-transition: all 0.218s;
             transition: all 0.218s;
         }
-
-
-
     </style>
 
 }
 
 @MyHelper.MessageError(Model.Msg)
+<!--Inicio Header-->
+<header id="intro" class="intro-section">
+    <div class="container-fluid">
+        <div class="intro-text">
+            <div class="intro-lead-in">Bem Vindo</div>
+            <div class="intro-heading">Método de Estudo Pomodoro</div>
+            <a class="btn btn-pomodoro page-scroll" href="#secao1">Entrar</a>
+        </div>
+    </div>
+</header>
+<!--Fim Header-->
+<section id="secao1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Titulo</h2>
+                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est necessitatibus iure perferendis eaque ex autem, aperiam maxime animi quasi error? Perferendis unde numquam ex animi, magnam modi pariatur suscipit sit.</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="secao2" style="background-color: #eee">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Titulo</h2>
+                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est necessitatibus iure perferendis eaque ex autem, aperiam maxime animi quasi error? Perferendis unde numquam ex animi, magnam modi pariatur suscipit sit.</h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="secao3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="chart_div"></div>
+            </div>
+            <div class="col-lg-6">
+                <h4 class="media-heading">Titulo</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque veniam quibusdam deserunt ullam ratione magni cumque nobis quo quaerat voluptatum! Mollitia tenetur ex numquam, molestias rem assumenda, itaque excepturi cum.</p>
+            </div>
+        </div><!--Fim row-->
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Titulo</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic sequi dolore maxime expedita eum corporis quia vel commodi et tempora vero esse optio repellat magni, earum excepturi officiis ipsum ipsam.</p>
+            </div>
+            <div class="col-lg-6">
+                <div id="chart_div2" class="media-object"></div>
+            </div>
+        </div><!--Fim row-->
+
+    </div><!--Fim container-->
+</section>
 
 <div class="container">
     <div class="card card-container">
         <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
-       
-     @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
+
+        @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
         {
             <span id="reauth-email" class="reauth-email"></span>
 
-            @Html.TextBoxFor(m => m.Username,new {@class="form-control" , placeholder = "RM" , required = "required", autofocus= "autofocus" })
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
             @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
             <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
         }
 
     </div><!-- /card-container -->
 </div><!-- /container -->
+
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/googlecharts.js"> </script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+              ['Variavel1', 3],
+              ['Variavel2', 1],
+              ['Variavel3', 1],
+              ['Variavel4', 1],
+              ['Variavel5', 2]
+            ]);
+
+            var options = {
+                'title': 'Titulo do Gráfico',
+                'width': 500,
+                'height': 400,
+                //'is3D': true deixa o grafico em 3D
+                //'legend':'left' controlar a posicao da legenda
+                'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+              ['Variavel1', 3],
+              ['Variavel2', 1],
+              ['Variavel3', 1],
+              ['Variavel4', 1],
+              ['Variavel5', 2]
+            ]);
+
+            var options = {
+                'title': 'Titulo do Gráfico',
+                'width': 500,
+                'height': 400,
+                //'is3D': true deixa o grafico em 3D
+                //'legend':'left' controlar a posicao da legenda
+                'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
+
+
+
+
+
+
+
+        //jQuery to collapse the navbar on scroll
+        $(window).scroll(function () {
+            if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
+                $(".navbar-fixed-top").addClass("top-nav-collapse");
+            } else {
+                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+            }
+        });
+
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+        $(function () {
+            $('a.page-scroll').bind('click', function (event) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $($anchor.attr('href')).offset().top
+                }, 1500, 'easeInOutExpo');
+                event.preventDefault();
+            });
+        });
+
+    </script>
+}
+
+
