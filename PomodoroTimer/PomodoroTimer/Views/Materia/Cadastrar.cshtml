@@ -4,70 +4,75 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar Matéria</h2>
 
-@MyHelper.Message(Model.Msg)
+<div class="container">
 
-@using (@Html.BeginForm())
-{
+    <h2>Cadastrar Matéria</h2>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Nome)
-                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Nome)
+    @MyHelper.Message(Model.Msg)
+
+    @using (@Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Nome)
+                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Nome)
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.CursoId)
-                @Html.DropDownListFor(m => m.CursoId, Model.Cursos, "Selecione", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CursoId)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CursoId)
+                    @Html.DropDownListFor(m => m.CursoId, Model.Cursos, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CursoId)
+                </div>
             </div>
         </div>
-    </div>
 
-    @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
-}
+        @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
+    }
 
-@section Scripts{
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-validate-fixes.js"></script>
-    <script>
-        var isValid = false;
+</div>
 
-        $(document).ready(function () {
-            $("#Nome").focusout(function () {
-                validarNome();
-            });
-            $("#CursoId").change(function () {
-                validarNome();
-            });
-        });
+    @section Scripts{
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery-validate-fixes.js"></script>
+        <script>
+            var isValid = false;
 
-        function validarNome(){
-            if ($("#Nome").val() != "" && $("#CursoId").val() != "") {
-                $.ajax({
-                    url: "http://localhost:39324/Materia/VerificarNome",
-                    type: "GET",
-                    data: { "nome": $("#Nome").val(), "cursoId": $("#CursoId").val() },
-                    success: function (data) {
-                        if (data.existe) {
-                            $("#Nome").parent().addClass("has-error");
-                            $("#Nome").parent().find(".field-validation-valid").text("Esse curso já está cadastrado");
-                            $("#Cadastrar").prop("disabled", true);
-                        } else {
-                            $("#Nome").parent().removeClass("has-error");
-                            $("#Nome").parent().find(".field-validation-valid").text("");
-                            $("#Cadastrar").prop("disabled", false);
-                        }
-                    }
+            $(document).ready(function () {
+                $("#Nome").focusout(function () {
+                    validarNome();
                 });
+                $("#CursoId").change(function () {
+                    validarNome();
+                });
+            });
+
+            function validarNome() {
+                if ($("#Nome").val() != "" && $("#CursoId").val() != "") {
+                    $.ajax({
+                        url: "http://localhost:39324/Materia/VerificarNome",
+                        type: "GET",
+                        data: { "nome": $("#Nome").val(), "cursoId": $("#CursoId").val() },
+                        success: function (data) {
+                            if (data.existe) {
+                                $("#Nome").parent().addClass("has-error");
+                                $("#Nome").parent().find(".field-validation-valid").text("Esse curso já está cadastrado");
+                                $("#Cadastrar").prop("disabled", true);
+                            } else {
+                                $("#Nome").parent().removeClass("has-error");
+                                $("#Nome").parent().find(".field-validation-valid").text("");
+                                $("#Cadastrar").prop("disabled", false);
+                            }
+                        }
+                    });
+                }
             }
-        }
-    </script>
+        </script>
     }
