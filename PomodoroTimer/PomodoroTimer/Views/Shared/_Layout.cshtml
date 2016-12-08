@@ -27,7 +27,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
-                        @if (Session["TipoUsuario"].Equals("ADMIN"))
+                        @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ADMIN"))
                         {
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
@@ -39,8 +39,14 @@
                                     <li> @Html.ActionLink("Administrador", "Cadastrar", "Administrador")</li>
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gráficos<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Tempo estudado por dia", "TempoDiario", "Graficos")</li>
+                                </ul>
+                            </li>
                         }
-                        @if (Session["TipoUsuario"].Equals("ALUNO"))
+                        @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ALUNO"))
                         {
                             <li> @Html.ActionLink("Iniciar Sessão", "Index", "Sessao")</li>
                             <li class="dropdown">
@@ -105,9 +111,11 @@
     @RenderBody()
     <div class="container-fluid">
 
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="footer">
+            <div class="container text-center">
+                <hr />
+                <span class="text-muted">2016 - Todos os direitos reservados</span>
+            </div>
         </footer>
     </div>
 

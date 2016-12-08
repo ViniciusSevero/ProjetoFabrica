@@ -265,6 +265,8 @@
     <Content Include="Views\Administrador\Cadastrar.cshtml" />
     <Content Include="Views\Graficos\TempoDiarioAluno.cshtml" />
     <Content Include="Views\Graficos\TempoMensalAluno.cshtml" />
+    <Content Include="Views\Graficos\TempoDiario.cshtml" />
+    <Content Include="Views\Graficos\_modalPesquisarAluno.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

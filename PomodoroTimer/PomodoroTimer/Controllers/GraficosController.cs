@@ -24,7 +24,6 @@ namespace PomodoroTimer.Controllers
             return View();
         }
 
-
         [PermissoesFiltro(Roles = "ALUNO")]
         [HttpGet]
         public ActionResult TempoMensalAluno()
@@ -33,16 +32,25 @@ namespace PomodoroTimer.Controllers
             return View();
         }
 
+        [PermissoesFiltro(Roles = "ADMIN")]
+        [HttpGet]
+        public ActionResult TempoDiario()
+        {
+            return View(_unit.AlunoRepository.Listar());
+        }
+
 
 
         #region AJAX
         [HttpGet]
-        public ActionResult GetMediaMensalAluno()
+        public ActionResult GetMediaMensalAluno(int? AlunoID)
         {
-            ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
+            AlunoID = AlunoID == null ? getAlunoLoginSessao().Id : AlunoID;
+
+            ICollection <Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
             var query =
                 from sessao in sessoes
-                where sessao.Data.Value.Month == DateTime.Now.Month && sessao.AlunoId == getAlunoLoginSessao().Id
+                where sessao.Data.Value.Month == DateTime.Now.Month && sessao.AlunoId == AlunoID
                 group sessao by sessao.Data.Value.Day into grupo
                 orderby grupo.Key
                 select new
@@ -69,8 +77,10 @@ namespace PomodoroTimer.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTempoEstudadoDuranteAno()
+        public ActionResult GetTempoEstudadoDuranteAno(int? AlunoID)
         {
+            AlunoID = AlunoID == null ? getAlunoLoginSessao().Id : AlunoID;
+
             ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
             var query =
                 from sessao in sessoes
