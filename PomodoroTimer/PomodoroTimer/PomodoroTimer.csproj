@@ -263,7 +263,8 @@
     <Content Include="Views\Autenticador\Logar.cshtml" />
     <Content Include="Views\Autenticador\Negado.cshtml" />
     <Content Include="Views\Administrador\Cadastrar.cshtml" />
-    <Content Include="Views\Graficos\MinutosMensalAluno.cshtml" />
+    <Content Include="Views\Graficos\TempoDiarioAluno.cshtml" />
+    <Content Include="Views\Graficos\TempoMensalAluno.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

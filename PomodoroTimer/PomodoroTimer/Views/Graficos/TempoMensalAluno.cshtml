@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "MediaMensalAluno";
+}
+
+@section Estilo{
+    <style>
+        #loading {
+            width: 200px;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+
+<div class="container">
+
+    <h2>@TempData["Aluno"]</h2>
+
+    <div id="columnchart_material"></div>
+
+    <img id="loading" class="img-responsive" src="@Url.Content("~/Content/images/loading.gif")" alt="loading gif" />
+
+</div>
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        var meses = new Array("Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez");
+            //carregar scripts primeiro
+            google.charts.load('current', { 'packages': ['bar'] });
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(requisitarDados);
+
+            function requisitarDados() {
+                $.ajax({
+                    url: "http://localhost:39324/Graficos/GetTempoEstudadoDuranteAno",
+                    type: "GET",
+                    success: function (data) {
+                        var mesHoje = new Date().getMonth(); //0 == janeiro
+                        var array = [];
+                        array.push(['Mês', 'Minutos estudados pelo aluno', 'Média de min. estudados pelos alunos'])
+                        for (var i = 0; i <= mesHoje; i++) {
+                            var minMesAluno = 0;
+                            var minMedia = 0;
+
+                            for (var x = 0; x < data.listaAluno.length; x++) {
+                                //UnidadeDeGrupoEstudada == mes
+                                if (i + 1 == data.listaAluno[x].UnidadeDeGrupoEstudada) {
+                                    minMesAluno = data.listaAluno[x].Minutos
+                                    break;
+                                }
+                            }
+
+                            for (var x = 0; x < data.listaMedias.length; x++) {
+                                if (i + 1 == data.listaMedias[x].UnidadeDeGrupoEstudada) {
+                                    minMedia = data.listaMedias[x].Minutos
+                                    break;
+                                }
+                            }
+
+                            array.push([meses[i], minMesAluno, minMedia]);
+                        }
+
+                        console.log(array);
+
+                        $("#loading").fadeOut(500, function () {
+                            $(this).remove();
+                            drawChart(array);
+                        })
+                    }
+                });
+            }
+
+            function drawChart(array) {
+                var data = google.visualization.arrayToDataTable(array);
+
+                var options = {
+                    chart: {
+                        title: 'Minutos estudados pelo aluno por mês',
+                        subtitle: 'Ano : '+new Date().getFullYear(),
+                        width: '100%',
+                        height: 500
+                    }
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+                chart.draw(data, options);
+            }
+    </script>
+}
