@@ -23,9 +23,9 @@ namespace PomodoroTimerService.Controllers
                     AlunoId = sessaoDTO.AlunoId,
                     MateriaId = sessaoDTO.MateriaId,
                     TipoId = sessaoDTO.TipoId,
-                    Observacao = sessaoDTO.Observacao
+                    Observacao = sessaoDTO.Observacao,
+                    Data = DateTime.Now
                 };
-
 
                 _unit.SessaoRepository.Cadastrar(sessao);
                 _unit.Save();

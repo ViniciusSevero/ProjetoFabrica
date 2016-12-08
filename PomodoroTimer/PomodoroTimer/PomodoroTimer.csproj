@@ -152,6 +152,7 @@
     <Content Include="Content\audios\Soar-sessao-concluida.mp3" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -222,6 +223,7 @@
     <Compile Include="Controllers\AlunoController.cs" />
     <Compile Include="Controllers\AutenticadorController.cs" />
     <Compile Include="Controllers\CursoController.cs" />
+    <Compile Include="Controllers\GraficosController.cs" />
     <Compile Include="Controllers\MateriaController.cs" />
     <Compile Include="Controllers\SessaoController.cs" />
     <Compile Include="Controllers\TipoSessaoController.cs" />
@@ -234,6 +236,7 @@
     <Compile Include="ViewModels\AdministradorViewModel.cs" />
     <Compile Include="ViewModels\AlunoViewModel.cs" />
     <Compile Include="ViewModels\CursoViewModel.cs" />
+    <Compile Include="ViewModels\DiaEstudadoViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MateriaViewModel.cs" />
     <Compile Include="ViewModels\SessaoViewModel.cs" />
@@ -260,6 +263,7 @@
     <Content Include="Views\Autenticador\Logar.cshtml" />
     <Content Include="Views\Autenticador\Negado.cshtml" />
     <Content Include="Views\Administrador\Cadastrar.cshtml" />
+    <Content Include="Views\Graficos\MinutosMensalAluno.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

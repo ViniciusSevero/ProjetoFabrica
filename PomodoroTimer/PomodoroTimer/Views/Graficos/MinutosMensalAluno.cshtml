@@ -1,0 +1,96 @@
+﻿@model List<PomodoroTimer.ViewModels.DiaEstudadoViewModel>
+
+@{
+    ViewBag.Title = "MediaMensalAluno";
+}
+
+@section Estilo{
+    <style>
+        #loading {
+            width: 200px;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+<h2>@TempData["Aluno"]</h2>
+
+<div id="line_top_x"></div>
+
+<img id="loading" class="img-responsive" src="@Url.Content("~/Content/images/loading.gif")" alt="loading gif" />
+
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        //carregar scripts primeiro
+        google.charts.load('current', { 'packages': ['line'] });
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(requisitarDados);
+
+        function requisitarDados() {
+            $.ajax({
+                url: "http://localhost:39324/Graficos/GetMediaMensalAluno",
+                type: "GET",
+                success: function (data) {
+                    var diaHoje = new Date().getDate();
+                    var array = [];
+                    for (var i = 1; i <= diaHoje; i++) {
+                        var minAluno = 0;
+                        var minMedia = 0;
+
+                        for (var x = 0; x < data.listaAluno.length; x++) {
+                            if (i == data.listaAluno[x].DiaEstudado) {
+                                minAluno = data.listaAluno[x].Minutos
+                                break;
+                            }
+                        }
+                        for (var x = 0; x < data.listaMedias.length; x++) {
+                            if (i == data.listaMedias[x].DiaEstudado) {
+                                minMedia = data.listaMedias[x].Minutos
+                                break;
+                            }
+                        }
+
+                        array.push([i, minAluno, minMedia]);
+                    }
+
+                    console.log(array);
+
+                    $("#loading").fadeOut(500, function () {
+                        $(this).remove();
+                        drawChart(array);
+                    })
+                }
+            });
+        }
+
+        function drawChart(rows) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Dias');
+            data.addColumn('number', 'Minutos diários estudados pelo aluno');
+            data.addColumn('number', 'Média Aritmética de minutos diários estudados dentre todos os alunos');
+
+            data.addRows(rows);
+
+            var options = {
+                chart: {
+                    title: 'Minutos estudados pelo Aluno por dia durante esse mês',
+                    subtitle: 'Em minutos'
+                },
+                width: '100%',
+                height: 500,
+                axes: {
+                    x: {
+                        0: { side: 'top' }
+                    }
+                },
+            
+            };
+
+            var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+            chart.draw(data, options);
+        }
+    </script>
+}
