@@ -4,50 +4,55 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar Curso</h2>
 
-@MyHelper.Message(Model.Msg)
+<div class="container">
 
-@using (@Html.BeginForm())
-{ 
-    
-<div class="form-group">
-    @Html.LabelFor(m => m.Nome)
-    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Nome)
+    <h2>Cadastrar Curso</h2>
+
+    @MyHelper.Message(Model.Msg)
+
+    @using (@Html.BeginForm())
+    {
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Nome)
+            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Nome)
+        </div>
+
+        @MyHelper.Button("Cadastrar", "btn btn-primary")
+    }
+
 </div>
 
-@MyHelper.Button("Cadastrar","btn btn-primary")
-}
+    @section Scripts{
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery-validate-fixes.js"></script>
+        <script>
+            var isValid = false;
 
-@section Scripts{
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-validate-fixes.js"></script>
-    <script>
-        var isValid = false;
-
-        $(document).ready(function () {
-            $("#Cadastrar").click(function () {
-                validarNome();
+            $(document).ready(function () {
+                $("#Cadastrar").click(function () {
+                    validarNome();
+                });
             });
-        });
 
-        function validarNome() {
-            $.ajax({
-                url: "http://localhost:39324/Curso/VerificarNome",
-                type: "GET",
-                data: { "nome": $("#Nome").val() },
-                success: function (data) {
-                    if (data.existe) {
-                        $("#Nome").parent().addClass("has-error");
-                        $("#Nome").focus();
-                        $("#Nome").parent().find(".field-validation-valid").text("Esse curso já está cadastrado");
-                    } else {
-                        $("form").submit();
+            function validarNome() {
+                $.ajax({
+                    url: "http://localhost:39324/Curso/VerificarNome",
+                    type: "GET",
+                    data: { "nome": $("#Nome").val() },
+                    success: function (data) {
+                        if (data.existe) {
+                            $("#Nome").parent().addClass("has-error");
+                            $("#Nome").focus();
+                            $("#Nome").parent().find(".field-validation-valid").text("Esse curso já está cadastrado");
+                        } else {
+                            $("form").submit();
+                        }
                     }
-                }
-            });
-        }
-</script>
-}
+                });
+            }
+        </script>
+    }

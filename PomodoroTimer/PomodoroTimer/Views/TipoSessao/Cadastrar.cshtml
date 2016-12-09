@@ -4,105 +4,110 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar Tipo de Sessão</h2>
 
-@MyHelper.Message(Model.Msg)
+<div class="container">
 
-@using (@Html.BeginForm())
-{
+    <h2>Cadastrar Tipo de Sessão</h2>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Tipo)
-                @Html.TextBoxFor(m => m.Tipo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Tipo)
+    @MyHelper.Message(Model.Msg)
+
+    @using (@Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Tipo)
+                    @Html.TextBoxFor(m => m.Tipo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Tipo)
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.Duracao)
-                @Html.TextBoxFor(m => m.Duracao, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Duracao)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Duracao)
+                    @Html.TextBoxFor(m => m.Duracao, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Duracao)
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.TempoEstudo)
-                @Html.TextBoxFor(m => m.TempoEstudo, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.TempoEstudo)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TempoEstudo)
+                    @Html.TextBoxFor(m => m.TempoEstudo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TempoEstudo)
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.LabelFor(m => m.TempoDescanso)
-                @Html.TextBox("TempoDescansoMock",Model.TempoDescanso, new { @class = "form-control" })
-                @Html.HiddenFor(m => m.TempoDescanso)
-                @Html.ValidationMessageFor(m => m.TempoDescanso)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TempoDescanso)
+                    @Html.TextBox("TempoDescansoMock", Model.TempoDescanso, new { @class = "form-control" })
+                    @Html.HiddenFor(m => m.TempoDescanso)
+                    @Html.ValidationMessageFor(m => m.TempoDescanso)
+                </div>
             </div>
         </div>
-    </div>
 
 
-    @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
-}
+        @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
+    }
 
-@section Scripts{
+</div>
 
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script src="~/Scripts/jquery-validate-fixes.js"></script>
+    @section Scripts{
 
-    <script>
-        $(document).ready(function () {
-            $("#TempoDescansoMock").prop("disabled", true);
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery-validate-fixes.js"></script>
 
-            $("#Duracao").keyup(function () {
-                validarDuracao()
+        <script>
+            $(document).ready(function () {
+                $("#TempoDescansoMock").prop("disabled", true);
+
+                $("#Duracao").keyup(function () {
+                    validarDuracao()
+                });
+                $("#Duracao").focusout(function () {
+                    validarDuracao()
+                });
+
+                $("#TempoEstudo").keyup(function () {
+                    validarTempoEstudo();
+                });
+                $("#TempoEstudo").focusout(function () {
+                    validarTempoEstudo();
+                });
+
+
             });
-            $("#Duracao").focusout(function () {
-                validarDuracao()
-            });
 
-            $("#TempoEstudo").keyup(function () {
-                validarTempoEstudo();
-            });
-            $("#TempoEstudo").focusout(function () {
-                validarTempoEstudo();
-            });
-
-
-        });
-
-        function validarDuracao() {
-            $("#TempoEstudo").val($("#Duracao").val());
-            $("#TempoDescanso").val(0);
-            $("#TempoDescansoMock").val(0);
-        }
-
-        function validarTempoEstudo() {
-            if (parseInt($("#TempoEstudo").val()) > parseInt($("#Duracao").val())) {
+            function validarDuracao() {
                 $("#TempoEstudo").val($("#Duracao").val());
                 $("#TempoDescanso").val(0);
                 $("#TempoDescansoMock").val(0);
-            } else {
+            }
 
-                if ($("#TempoEstudo").val() != "") {
-                    var tesmpoDescanso = parseInt($("#Duracao").val()) - parseInt($("#TempoEstudo").val());
-                    $("#TempoDescanso").val(tesmpoDescanso);
-                    $("#TempoDescansoMock").val(tesmpoDescanso);
-                } else {
+            function validarTempoEstudo() {
+                if (parseInt($("#TempoEstudo").val()) > parseInt($("#Duracao").val())) {
+                    $("#TempoEstudo").val($("#Duracao").val());
                     $("#TempoDescanso").val(0);
                     $("#TempoDescansoMock").val(0);
+                } else {
+
+                    if ($("#TempoEstudo").val() != "") {
+                        var tesmpoDescanso = parseInt($("#Duracao").val()) - parseInt($("#TempoEstudo").val());
+                        $("#TempoDescanso").val(tesmpoDescanso);
+                        $("#TempoDescansoMock").val(tesmpoDescanso);
+                    } else {
+                        $("#TempoDescanso").val(0);
+                        $("#TempoDescansoMock").val(0);
+                    }
                 }
             }
-        }
-    </script>
+        </script>
 
-}
+    }

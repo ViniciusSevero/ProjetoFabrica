@@ -19,6 +19,7 @@ namespace PomodoroTimerDominio.Models
         public int AlunoId { get; set; }
         public int MateriaId { get; set; }
         public string Observacao { get; set; }
+        public Nullable<System.DateTime> Data { get; set; }
     
         public virtual Aluno Aluno { get; set; }
         public virtual Materia Materia { get; set; }

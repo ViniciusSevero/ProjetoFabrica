@@ -130,6 +130,7 @@
     <Compile Include="Models\Aluno.cs">
       <DependentUpon>Banco.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AuxiliarGrafico.cs" />
     <Compile Include="Models\Banco.Context.cs">
       <DependentUpon>Banco.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>

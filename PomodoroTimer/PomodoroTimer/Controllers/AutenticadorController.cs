@@ -30,12 +30,15 @@ namespace PomodoroTimer.Controllers
 
             if (l != null)
             {
-                if(l.Permissao.Select(p => p.Permissao1 == "ADMIN").Single())
+                if (l.Permissao.Select(p => p.Permissao1 == "ADMIN").Single())
                 {
+                    Session["TipoUsuario"] = "ADMIN";
                     return RedirectToAction("Cadastrar", "Aluno");
                 }
                 else
                 {
+                    Session["TipoUsuario"] = "ALUNO";
+                    Session["Nome"] = l.Aluno.First().Nome;
                     return RedirectToAction("Index", "Sessao");
                 }
                
@@ -49,6 +52,7 @@ namespace PomodoroTimer.Controllers
         [HttpGet]
         public ActionResult Sair()
         {
+            Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Logar");
         }
