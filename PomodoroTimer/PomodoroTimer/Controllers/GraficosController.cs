@@ -39,6 +39,13 @@ namespace PomodoroTimer.Controllers
             return View(_unit.AlunoRepository.Listar());
         }
 
+        [PermissoesFiltro(Roles = "ADMIN")]
+        [HttpGet]
+        public ActionResult TempoMensal()
+        {
+            return View(_unit.AlunoRepository.Listar());
+        }
+
 
 
         #region AJAX
@@ -84,7 +91,7 @@ namespace PomodoroTimer.Controllers
             ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
             var query =
                 from sessao in sessoes
-                where sessao.Data.Value.Year == DateTime.Now.Year && sessao.AlunoId == getAlunoLoginSessao().Id
+                where sessao.Data.Value.Year == DateTime.Now.Year && sessao.AlunoId == AlunoID
                 group sessao by sessao.Data.Value.Month into grupo
                 orderby grupo.Key
                 select new

@@ -30,7 +30,6 @@ namespace PomodoroTimer.Controllers
 
             if (l != null)
             {
-              
                 if (l.Permissao.Select(p => p.Permissao1 == "ADMIN").Single())
                 {
                     Session["TipoUsuario"] = "ADMIN";
@@ -39,6 +38,7 @@ namespace PomodoroTimer.Controllers
                 else
                 {
                     Session["TipoUsuario"] = "ALUNO";
+                    Session["Nome"] = l.Aluno.First().Nome;
                     return RedirectToAction("Index", "Sessao");
                 }
                
