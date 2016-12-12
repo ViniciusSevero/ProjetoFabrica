@@ -13,6 +13,12 @@
             border-color: transparent;
         }
 
+        .nav>li>a{
+            padding: 15px 0px 10px 0px;
+            margin-right: 20px; 
+            margin-left: 20px;
+        }
+
             .navbar-custom .navbar-brand {
                 color: #fed136;
                 font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
@@ -55,12 +61,13 @@
             .navbar-custom .navbar-nav > .active > a {
                 border-radius: 0;
                 color: #fff;
-                background-color: #fed136;
+                border-bottom: 5px solid #fed136;
+                background-color: transparent;
             }
 
                 .navbar-custom .navbar-nav > .active > a:focus, .navbar-custom .navbar-nav > .active > a:hover {
                     color: #fff;
-                    background-color: #fec503;
+                    background-color: transparent;
                 }
 
         .card-container.card {
@@ -157,7 +164,7 @@
         .card {
             background-color: #F7F7F7;
             /* just in case there no content*/
-            padding: 20px 25px 30px 25px;
+            padding: 20px 25px 30px;
             margin: 0 auto 25px;
             margin-top: 50px;
             /* shadows and rounded borders */
@@ -254,7 +261,43 @@
 
 }
 
-@MyHelper.MessageError(Model.Msg)
+@section Navbar{
+<!--NavBar-->
+<ul class="nav navbar-nav">
+    <li class="hidden">
+        <a class="page-scroll" href="#page-top"></a>
+    </li>
+    <li>
+        <a class="page-scroll" href="#secao1">Secao1</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="#secao2">Secao2</a>
+    </li>
+    <li>
+        <a class="page-scroll" href="#secao3">Secao3</a>
+    </li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+    <!--Se pagina for Home -->
+
+    <li>
+        <a href="@Url.Action("Cadastrar", "Aluno")">
+            <span class="glyphicon glyphicon-user"></span>
+            Cadastrar
+        </a>
+    </li>
+    <!--Se pagina não for Home -->
+    <li>
+        <a href="#">
+            <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
+                Entrar
+            </span>
+        </a>
+    </li>
+</ul>
+}
+
+
 <!--Inicio Header-->
 <header id="intro" class="intro-section">
     <div class="container-fluid">
@@ -314,7 +357,7 @@
 <!--modalLogar-->
     <div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
         <div class="modal-dialog" role="document">
-             
+             <div class="container">
                   <div class="card card-container">
                    <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
                       <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
@@ -326,8 +369,9 @@
                                 @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
                                 <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
                             }
+                            @MyHelper.MessageError(Model.Msg)
                    </div><!-- /card-container -->
-             
+              </div>
         </div>
     </div>
     <!--Fim modal-->

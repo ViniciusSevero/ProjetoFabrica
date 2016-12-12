@@ -10,7 +10,6 @@ using Filtros.Security;
 
 namespace PomodoroTimer.Controllers
 {
-    [PermissoesFiltro(Roles = "ADMIN")]
     public class AlunoController : Controller
     {
         private UnitOfWork _unit = new UnitOfWork();

@@ -71,4 +71,7 @@
   <ItemGroup>
     <RefactorLog Include="PomodoroTimerDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="preparacao.sql" />
+  </ItemGroup>
 </Project>

@@ -6,3 +6,4 @@
     CONSTRAINT [FK_LoginPermissao_Permissao] FOREIGN KEY ([PermissaoId]) REFERENCES [Permissao]([Id]), 
     PRIMARY KEY ([LoginId], [PermissaoId])
 )
+

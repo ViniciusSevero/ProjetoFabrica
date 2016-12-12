@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
     @RenderSection("Estilo", false)
@@ -21,12 +21,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Pomodoro Timer", "Index", "Home", new { area = "" }, new { @class = "navbar-brand page-scroll" })
+                <!-- Navbar Brand-->
+                @Html.ActionLink("Pomodoro Timer", "Logar", "Autenticador", new { area = "" }, new { @class = "navbar-brand page-scroll" })
             </div>
+            <!--Condição para usuário autenticado-->
             <div class="navbar-collapse collapse">
                 @if (User.Identity.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav">
+                        <!--Condição para Usuário Administrador-->
                         @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ADMIN"))
                         {
                             <li class="dropdown">
@@ -47,6 +50,7 @@
                                 </ul>
                             </li>
                         }
+                        <!--Condição para Usuário Aluno-->
                         @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ALUNO"))
                         {
                             <li> @Html.ActionLink("Iniciar Sessão", "Index", "Sessao")</li>
@@ -69,39 +73,10 @@
                         </li>
                     </ul>
                 }
+                <!--Condição para Usuário Não Logado-->
                 else
                 {
-                    <ul class="nav navbar-nav">
-                        <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                        <li class="hidden">
-                            <a class="page-scroll" href="#page-top"></a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#secao1">Secao1</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#secao2">Secao2</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="#secao3">Secao3</a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Cadastrar</a></li>
-                        <li>
-                            <!--
-                            <a href="@Url.Action("Logar", "Autenticador")">
-                                <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar"></span>
-                                Entrar
-                            </a>
-                            -->
-                            <a href="#modalLogar">
-                                <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
-                                    Entrar
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
+                    @RenderSection("Navbar", false)
                 }
             </div>
         </div>
