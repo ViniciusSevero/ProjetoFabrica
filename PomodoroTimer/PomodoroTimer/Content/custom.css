@@ -100,6 +100,16 @@
 
        }
 
+       #ComoFunciona h2{
+           width: 100%;
+           border-bottom: 5px solid #caa013;
+           color: #caa013;
+           font-weight: bold;
+           font-size: 40px;
+           letter-spacing: 0.5px;
+           margin-bottom: 70px;
+       }
+
        #Conceito #Pomodoro{
            display: block;
            margin-top: 40px;

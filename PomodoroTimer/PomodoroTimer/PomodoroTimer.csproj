@@ -158,6 +158,8 @@
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\pomodoro-timer.png" />
     <Content Include="Content\images\Pomodoro.jpg" />
+    <Content Include="Content\images\tecnica-pomodoro.jpg" />
+    <Content Include="Content\images\tecnica_pomodoro.jpg" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />

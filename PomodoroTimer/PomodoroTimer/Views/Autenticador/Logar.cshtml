@@ -24,7 +24,7 @@
         header {
             min-height: 650px;
             background-color: black;
-            background-image: url(../img/header-bg.jpg);
+            background-image: url('../../Content/images/tecnica-pomodoro.jpg');
             background-repeat: no-repeat;
             background-attachment: scroll;
             background-position: center center;
@@ -305,16 +305,16 @@
             <div class="col-lg-6">
                 <div id="chart_div"></div>
             </div>
-            <div class="col-lg-6">
-                <h4 class="media-heading">Titulo</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque veniam quibusdam deserunt ullam ratione magni cumque nobis quo quaerat voluptatum! Mollitia tenetur ex numquam, molestias rem assumenda, itaque excepturi cum.</p>
+            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
+                
+                <p>Através deste gráfico, você consegue ter informações sobre o tempo de estudo por matéria</p>
+                <p>Você vai consegui organizar seu tempo melhor, controlando o tempo de estudo em cada matéria .</p>
             </div>
         </div><!--Fim row-->
 
         <div class="row">
-            <div class="col-lg-6">
-                <h4>Titulo</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic sequi dolore maxime expedita eum corporis quia vel commodi et tempora vero esse optio repellat magni, earum excepturi officiis ipsum ipsam.</p>
+            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
+                <p>Você vai conseguir avaliar o seu desempenho de outras maneiras, acompanhando mês a mês a sua evolução com os estudos.</p>
             </div>
             <div class="col-lg-6">
                 <div id="chart_div2" class="media-object"></div>
@@ -370,20 +370,20 @@
                 data.addColumn('string', 'Topping');
                 data.addColumn('number', 'Slices');
                 data.addRows([
-                  ['Variavel1', 3],
-                  ['Variavel2', 1],
-                  ['Variavel3', 1],
-                  ['Variavel4', 1],
-                  ['Variavel5', 2]
+                  ['Matematica', 3],
+                  ['Física', 1],
+                  ['Química', 1],
+                  ['Português', 1],
+                  ['História', 2]
                 ]);
 
                 var options = {
-                    'title': 'Titulo do Gráfico',
-                    'width': 500,
-                    'height': 400,
+                    'title': '% de minutos por Matéria',
+                    'width': 600,
+                    'height': 500,
                     //'is3D': true deixa o grafico em 3D
-                    //'legend':'left' controlar a posicao da legenda
-                    'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+                    'legend':'left', //controlar a posicao da legenda
+                    'colors': ['#FF6384', '#36A2EB', '#FF7F00', '#d95454', '#32CD32']//atribuir Cores
                 };
 
                 // Instantiate and draw our chart, passing in some options.
@@ -396,22 +396,23 @@
                 // Create the data table.
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Topping');
-                data.addColumn('number', 'Slices');
+                data.addColumn('number', 'Minutos');
                 data.addRows([
-                  ['Variavel1', 3],
-                  ['Variavel2', 1],
-                  ['Variavel3', 1],
-                  ['Variavel4', 1],
-                  ['Variavel5', 2]
+                  ['Janeiro', 1],
+                  ['Fevereiro', 1],
+                  ['Março', 3],
+                  ['Abril', 1],
+                  ['Maio', 2],
+                  ['Junho', 2],
                 ]);
 
                 var options = {
-                    'title': 'Titulo do Gráfico',
+                    'title': 'Quantidade de minutos por Mês',
                     'width': 500,
                     'height': 400,
                     //'is3D': true deixa o grafico em 3D
                     //'legend':'left' controlar a posicao da legenda
-                    'colors': ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']//atribuir Cores
+                    'colors': ['#36A2EB', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6', '#f6c7b6']//atribuir Cores
                 };
 
                 // Instantiate and draw our chart, passing in some options.
