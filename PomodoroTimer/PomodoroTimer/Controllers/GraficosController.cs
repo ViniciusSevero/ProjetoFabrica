@@ -34,6 +34,13 @@ namespace PomodoroTimer.Controllers
 
         [PermissoesFiltro(Roles = "ADMIN")]
         [HttpGet]
+        public ActionResult MateriasEstudadas()
+        {
+            return View(_unit.AlunoRepository.Listar());
+        }
+
+        [PermissoesFiltro(Roles = "ADMIN")]
+        [HttpGet]
         public ActionResult TempoMensal()
         {
             return View(_unit.AlunoRepository.Listar());

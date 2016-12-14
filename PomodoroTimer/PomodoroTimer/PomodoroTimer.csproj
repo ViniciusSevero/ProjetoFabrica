@@ -269,6 +269,7 @@
     <Content Include="Views\Graficos\TempoDiario.cshtml" />
     <Content Include="Views\Graficos\_modalPesquisarAluno.cshtml" />
     <Content Include="Views\Graficos\TempoMensal.cshtml" />
+    <Content Include="Views\Graficos\MateriasEstudadas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,0 +1,174 @@
+﻿@model ICollection<PomodoroTimerDominio.Models.Aluno>
+
+@{
+    ViewBag.Title = "TempoDiario";
+}
+
+
+@section Estilo{
+    <style>
+        #loading {
+            position: fixed;
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        #donutchart {
+            width: 100%;
+            height: 500px;
+            margin-top: 40px;
+        }
+
+        #btnSelecionar {
+            margin-top: 10px;
+        }
+
+        table tbody tr:hover {
+            cursor: pointer;
+        }
+    </style>
+}
+
+
+<div class="container">
+
+    <h2>Selecione um Aluno</h2>
+
+    <div class="row">
+        <div class="col-lg-12 input-group">
+            @Html.TextBox("AlunoID", null, new { @class = "form-control", disabled = "disabled", placeholder = "Cód. Aluno" })
+            <button id="btnPesquisar" class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <button id="btnSelecionar" class="btn btn-primary">Selecionar</button>
+        </div>
+    </div>
+
+    <div id="donutchart"></div>
+
+    <img id="loading" class="img-responsive" src="@Url.Content("~/Content/images/loading.gif")" alt="loading gif" />
+
+</div>
+
+@Html.Partial("_modalPesquisarAluno")
+
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        var chart;
+        //carregar scripts primeiro
+        google.charts.load('current', { 'packages': ['corechart'] });
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(loadChart);
+
+
+        function requisitarDados(alunoID) {
+            $("#donutchart").fadeTo(500, 0, function () {
+                $("#loading").fadeIn(500);
+
+                $.ajax({
+                    url: "http://localhost:39324/Graficos/GetMateriasEstudadas",
+                    type: "GET",
+                    data: { "AlunoID": alunoID },
+                    success: function (data) {
+                        var array = [];
+                        array.push(["Matéria", "Tempo Estudado"]);
+                        for (var i = 0; i < data.lista.length; i++) {
+                            array.push([data.lista[i].Materia, data.lista[i].Minutos]);
+                        }
+
+                        $("#loading").fadeOut(500, function () {
+                            $("#donutchart").fadeTo(500, 1);
+                            reDrawChart(array);
+                        })
+                    },
+                    error: function (error) {
+                        alert("Erro!");
+                    }
+                });
+            });
+        }
+
+        function loadChart() {
+
+            chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+
+        }
+
+        function reDrawChart(array) {
+
+            var data = google.visualization.arrayToDataTable(array);
+
+            var options = {
+                pieHole: 0.4,
+                title: 'Minutos estudados por matéria'
+            };
+
+            chart.draw(data, options);
+
+        }
+
+        function preparaGifLoading() {
+
+            var loading = document.querySelector('#loading'),
+            w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName('body')[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+            loading.style.top = (y / 2) - (loading.clientHeight / 2) + 'px';
+            loading.style.left = (x / 2) - (loading.clientWidth / 2) + 'px';
+
+            $("#loading").hide();
+        }
+
+        $(document).ready(function () {
+            //centraliza e esconde Gif Loading
+            preparaGifLoading()
+
+            $("#btnSelecionar").click(function () {
+                if ($("#AlunoID").val() != "") {
+                    requisitarDados(($("#AlunoID").val()));
+                }
+            });
+
+            $("table tbody tr").click(function () {
+                $("#AlunoID").val($(this).find(".AlunoID").text());
+                $('#myModal').modal('hide');
+            });
+
+            $("#myModal #btnPesquisar").click(function () {
+                $.ajax({
+                    url: "http://localhost:39324/api/Aluno",
+                    type: "GET",
+                    data: { "param": $("#myModal #Pesquisa").val() },
+                    success: function (data) {
+                        $("table tbody").html("");
+                        $.each(data, function (idx, item) {
+                            var linha = $("<tr>");//cria linha
+                            linha.append($("<td class=\"AlunoID\">").text(item.Id));
+                            linha.append($("<td>").text(item.Rm));
+                            linha.append($("<td>").text(item.Nome));
+
+                            $("table tbody").append(linha);
+                        });
+
+                        //relinkar evento
+                        $("table tbody tr").click(function () {
+                            $("#AlunoID").val($(this).find(".AlunoID").text());
+                            $('#myModal').modal('hide');
+                        });
+
+                    },
+                    error: function (error) {
+                        alert("Erro!");
+                    }
+                });
+            });
+        });
+    </script>
+}
