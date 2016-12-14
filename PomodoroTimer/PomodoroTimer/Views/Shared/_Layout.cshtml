@@ -48,6 +48,7 @@
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Tempo estudado por dia", "TempoDiario", "Graficos")</li>
                                     <li>@Html.ActionLink("Tempo estudado por mês", "TempoMensal", "Graficos")</li>
+                                    <li>@Html.ActionLink("Matérias estudadas", "MateriasEstudadas", "Graficos")</li>
                                 </ul>
                             </li>
                         }
@@ -55,13 +56,7 @@
                         @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ALUNO"))
                         {
                             <li> @Html.ActionLink("Iniciar Sessão", "Index", "Sessao")</li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gráficos<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li>@Html.ActionLink("Tempo estudado por dia", "TempoDiarioAluno", "Graficos")</li>
-                                    <li>@Html.ActionLink("Tempo estudado por mês", "TempoMensalAluno", "Graficos")</li>
-                                </ul>
-                            </li>
+                            <li>@Html.ActionLink("Gráficos", "Visualizar", "Graficos")</li>
                         }
                     </ul>
 

@@ -18,23 +18,23 @@ namespace PomodoroTimer.Controllers
 
         [PermissoesFiltro(Roles = "ALUNO")]
         [HttpGet]
-        public ActionResult TempoDiarioAluno()
+        public ActionResult Visualizar()
         {
             TempData["Aluno"] = getAlunoLoginSessao().Nome;
             return View();
         }
 
-        [PermissoesFiltro(Roles = "ALUNO")]
-        [HttpGet]
-        public ActionResult TempoMensalAluno()
-        {
-            TempData["Aluno"] = getAlunoLoginSessao().Nome;
-            return View();
-        }
 
         [PermissoesFiltro(Roles = "ADMIN")]
         [HttpGet]
         public ActionResult TempoDiario()
+        {
+            return View(_unit.AlunoRepository.Listar());
+        }
+
+        [PermissoesFiltro(Roles = "ADMIN")]
+        [HttpGet]
+        public ActionResult MateriasEstudadas()
         {
             return View(_unit.AlunoRepository.Listar());
         }
@@ -46,15 +46,50 @@ namespace PomodoroTimer.Controllers
             return View(_unit.AlunoRepository.Listar());
         }
 
-
-
         #region AJAX
+
+        [HttpGet]
+        public ActionResult GetMateriasEstudadas(int? AlunoID)
+        {
+            AlunoID = AlunoID == null ? getAlunoLoginSessao().Id : AlunoID;
+
+            ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
+            var query =
+                from sessao in sessoes
+                where sessao.AlunoId == AlunoID
+                group sessao by sessao.Materia.Id into materia
+                orderby materia.Key
+                select new
+                {
+                    materiaId = materia.Key, //materia a ser agrupado
+                    grupos = materia //lista com as sessoes agrupadas por dia
+                };
+
+            List<Object> listaFiltrada = new List<Object>();
+            //itero sobre os grupos criados
+            foreach (var grupo in query)
+            {
+                int tempoEstudo = 0;
+                string nomeMateria = _unit.MateriaRepository.BuscarPorId(grupo.materiaId).Nome;
+                
+                foreach (var sessao in grupo.grupos)//itero sobre as sessoes dos grupos
+                {
+                    tempoEstudo += sessao.TipoSessao.TempoEstudo;
+                }
+
+                listaFiltrada.Add(new { Materia = nomeMateria, Minutos = tempoEstudo });
+            }
+
+            return Json(new { lista = listaFiltrada }, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpGet]
         public ActionResult GetMediaMensalAluno(int? AlunoID)
         {
             AlunoID = AlunoID == null ? getAlunoLoginSessao().Id : AlunoID;
 
-            ICollection <Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
+            ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
             var query =
                 from sessao in sessoes
                 where sessao.Data.Value.Month == DateTime.Now.Month && sessao.AlunoId == AlunoID
