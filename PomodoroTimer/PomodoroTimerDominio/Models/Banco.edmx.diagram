@@ -8,10 +8,10 @@
         <EntityTypeShape EntityType="PomodoroTimerDBModel.Aluno" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="PomodoroTimerDBModel.Curso" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PomodoroTimerDBModel.Materia" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="PomodoroTimerDBModel.TipoSessao" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PomodoroTimerDBModel.TipoSessao" Width="1.5" PointX="5" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Aluno_Curso" ManuallyRouted="false" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Materia_Curso" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="PomodoroTimerDBModel.Sessao" Width="1.5" PointX="8" PointY="2.125" />
+        <EntityTypeShape EntityType="PomodoroTimerDBModel.Sessao" Width="1.5" PointX="7" PointY="1.75" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Aluno" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Materia" />
         <AssociationConnector Association="PomodoroTimerDBModel.FK_Sessao_Tipo" />

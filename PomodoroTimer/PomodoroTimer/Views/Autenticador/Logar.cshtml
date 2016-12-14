@@ -5,71 +5,6 @@
 
 @section Estilo{
     <style>
-        /*
-         * Navbar style
-         */
-        .navbar-custom {
-            background-color: #222;
-            border-color: transparent;
-        }
-
-        .nav>li>a{
-            padding: 15px 0px 10px 0px;
-            margin-right: 20px; 
-            margin-left: 20px;
-        }
-
-            .navbar-custom .navbar-brand {
-                color: #fed136;
-                font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
-            }
-
-                .navbar-custom .navbar-brand.active, .navbar-custom .navbar-brand:active, .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:hover {
-                    color: #fec503;
-                }
-
-                .navbar-custom .navbar-brand.active, .navbar-custom .navbar-brand:active, .navbar-custom .navbar-brand:focus, .navbar-custom .navbar-brand:hover {
-                    color: #fec503;
-                }
-
-            .navbar-custom .nav li a, .navbar-custom .navbar-toggle {
-                font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-                color: #fff;
-                text-transform: uppercase;
-            }
-
-            .navbar-custom .navbar-toggle {
-                background-color: #fed136;
-                border-color: #fed136;
-                font-size: 12px;
-            }
-
-                .navbar-custom .navbar-toggle:focus, .navbar-custom .navbar-toggle:hover {
-                    background-color: #fed136;
-                }
-
-            .navbar-custom .nav li a {
-                font-weight: 400;
-                letter-spacing: 1px;
-            }
-
-                .navbar-custom .nav li a:focus, .navbar-custom .nav li a:hover {
-                    color: #fed136;
-                    outline: 0;
-                }
-
-            .navbar-custom .navbar-nav > .active > a {
-                border-radius: 0;
-                color: #fff;
-                border-bottom: 5px solid #fed136;
-                background-color: transparent;
-            }
-
-                .navbar-custom .navbar-nav > .active > a:focus, .navbar-custom .navbar-nav > .active > a:hover {
-                    color: #fff;
-                    background-color: transparent;
-                }
-
         .card-container.card {
             max-width: 350px;
             padding: 40px 40px;
@@ -98,27 +33,27 @@
             color: #fff;
         }
 
-            header .intro-text {
-                padding-top: 300px;
-                padding-bottom: 50px;
-            }
+        header .intro-text {
+           padding-top: 250px;
+           padding-bottom: 50px;
+        }
 
-                header .intro-text .intro-lead-in {
-                    font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
-                    font-style: italic;
-                    font-size: 22px;
-                    line-height: 22px;
-                    margin-bottom: 25px;
-                }
+        header .intro-text .intro-lead-in {
+          font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
+          font-style: italic;
+          font-size: 22px;
+          line-height: 22px;
+          margin-bottom: 25px;
+        }
 
-                header .intro-text .intro-heading {
-                    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
-                    text-transform: uppercase;
-                    font-weight: 700;
-                    font-size: 50px;
-                    line-height: 50px;
-                    margin-bottom: 25px;
-                }
+        header .intro-text .intro-heading {
+          font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+          text-transform: uppercase;
+          font-weight: 700;
+          font-size: 50px;
+          line-height: 50px;
+          margin-bottom: 25px;
+        }
 
         .btn-pomodoro {
             color: #fff;
@@ -145,18 +80,18 @@
             padding: 100px 0;
         }
 
-            section h2.section-heading {
-                font-size: 40px;
-                margin-top: 0;
-                margin-bottom: 15px;
-            }
+        section h2.section-heading {
+            font-size: 40px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
 
-            section h3.section-subheading {
-                font-size: 16px;
-                text-transform: none;
-                font-weight: 400;
-                margin-bottom: 75px;
-            }
+        section h3.section-subheading {
+            font-size: 16px;
+            text-transform: none;
+            font-weight: 400;
+            margin-bottom: 75px;
+        }
 
         /*
          * Card component
@@ -263,38 +198,41 @@
 
 @section Navbar{
 <!--NavBar-->
-<ul class="nav navbar-nav">
-    <li class="hidden">
-        <a class="page-scroll" href="#page-top"></a>
-    </li>
-    <li>
-        <a class="page-scroll" href="#secao1">Secao1</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="#secao2">Secao2</a>
-    </li>
-    <li>
-        <a class="page-scroll" href="#secao3">Secao3</a>
-    </li>
-</ul>
-<ul class="nav navbar-nav navbar-right">
-    <!--Se pagina for Home -->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <ul class="nav navbar-nav">
+            <li class="hidden">
+                <a class="page-scroll" href="#page-top"></a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#Conceito">Conceito</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#ComoFunciona">Como funciona</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#secao3">Contato</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <!--Se pagina for Home -->
 
-    <li>
-        <a href="@Url.Action("Cadastrar", "Aluno")">
-            <span class="glyphicon glyphicon-user"></span>
-            Cadastrar
-        </a>
-    </li>
-    <!--Se pagina não for Home -->
-    <li>
-        <a href="#">
-            <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
-                Entrar
-            </span>
-        </a>
-    </li>
-</ul>
+            <li>
+                <a href="@Url.Action("Cadastrar", "Aluno")">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Cadastrar
+                </a>
+            </li>
+            <!--Se pagina não for Home -->
+            <li>
+                <a href="#">
+                    <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
+                        Entrar
+                    </span>
+                </a>
+            </li>
+        </ul>
+    }
 }
 
 
@@ -304,27 +242,59 @@
         <div class="intro-text">
             <div class="intro-lead-in">Bem Vindo</div>
             <div class="intro-heading">Método de Estudo Pomodoro</div>
-            <a class="btn btn-pomodoro page-scroll" href="#secao1">Entrar</a>
+            <a class="btn btn-pomodoro page-scroll" href="#Conceito">Iniciar</a>
         </div>
     </div>
 </header>
 <!--Fim Header-->
-<section id="secao1">
+<section id="Conceito">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Titulo</h2>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est necessitatibus iure perferendis eaque ex autem, aperiam maxime animi quasi error? Perferendis unde numquam ex animi, magnam modi pariatur suscipit sit.</h3>
-            </div>
-        </div>
-    </div>
+                <h2>Conceito</h2>
+                <div class="col-md-6" id="Pomodoro">
+                    <img src="~/Content/images/pomodoro-timer.png" width="350" height="300" />
+                </div>
+                <div class="col-md-6">
+                    <h3 style="display:inline-block">A Técnica Pomodoro é um método de gerenciamento de tempo desenvolvido por Francesco Cirillo no final dos anos 1980.</h3>
+                    <h3> A técnica consiste na utilização de um cronômetro para dividir o trabalho em períodos de 25 minutos, separados por breves intervalos.</h3>
+                    <h3> A técnica deriva seu nome da palavra italiana pomodoro (tomate), como referência ao popular cronômetro gastronômico na forma dessa fruta.</h3>
+                    <h3> O método é baseado na ideia de que pausas frequentes podem aumentar a agilidade mental.</h3>        
+                </div>
+             </div>
+         </div>
+     </div>
 </section>
-<section id="secao2" style="background-color: #eee">
+<section id="ComoFunciona" style="background-color: #eee">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Titulo</h2>
-                <h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est necessitatibus iure perferendis eaque ex autem, aperiam maxime animi quasi error? Perferendis unde numquam ex animi, magnam modi pariatur suscipit sit.</h3>
+                <h2>Como Funciona</h2>
+                <div class="col-md-2" style="height: 200px;">
+                    
+                    
+                    <div class="Passo1">Escolha a Sessão</div>   
+                    
+                </div>
+                <div class="col-md-1">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </div>
+                <div class="col-md-2" style="height: 200px;">
+                    
+                <div class="Passo1">Escolha a Matéria</div>
+
+                    
+                </div>
+                <div class="col-md-2" style="margin-left:-60px; height: 200px;" >
+                    
+                    <div class="Passo1">Execute a Tarefa</div>
+                    
+                </div>
+                <div class="col-md-2" style="height: 200px;">
+                   
+                    <div class="Passo1">Descanse</div>
+                   
+                </div>
             </div>
         </div>
     </div>
