@@ -264,7 +264,7 @@
     <Content Include="Views\Autenticador\Logar.cshtml" />
     <Content Include="Views\Autenticador\Negado.cshtml" />
     <Content Include="Views\Administrador\Cadastrar.cshtml" />
-    <Content Include="Views\Graficos\TempoDiarioAluno.cshtml" />
+    <Content Include="Views\Graficos\Visualizar.cshtml" />
     <Content Include="Views\Graficos\TempoMensalAluno.cshtml" />
     <Content Include="Views\Graficos\TempoDiario.cshtml" />
     <Content Include="Views\Graficos\_modalPesquisarAluno.cshtml" />
