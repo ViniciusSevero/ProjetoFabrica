@@ -23,7 +23,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- Navbar Brand-->
-                @Html.ActionLink("Pomodoro Timer", "Logar", "Autenticador", new { area = "" }, new { @class = "navbar-brand page-scroll" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Pomodoro Timer", "Logar", "Autenticador", new { area = "" }, new { @class = "navbar-brand page-scroll" })
+                }
+                else
+                {
+                    <a class="navbar-brand page-scroll" href="#page-top">Pomodoro Timer</a>
+                }
             </div>
             <!--Condição para usuário autenticado-->
             <div class="navbar-collapse collapse">

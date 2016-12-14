@@ -5,6 +5,9 @@
 
 @section Estilo{
     <style>
+        .navbar-inverse{
+            background: transparent;
+        }
         .card-container.card {
             max-width: 350px;
             padding: 40px 40px;
@@ -21,24 +24,32 @@
         /*
          * Header style
          */
-        header {
-            min-height: 650px;
-            background-color: black;
+        #intro {
+            width: 100%;
+            margin-top:-50px;
+        }
+
+        .background{
             background-image: url('../../Content/images/tecnica-pomodoro.jpg');
-            background-repeat: no-repeat;
-            background-attachment: scroll;
             background-position: center center;
             background-size: cover;
-            text-align: center;
-            color: #fff;
+            height: 100vh;
         }
 
-        header .intro-text {
+        .dark{
+            background-color: rgba(0,0,0,.65);
+	        height: 100%;
+	        width: 100%;
+        }
+
+        #intro .intro-text {
            padding-top: 250px;
            padding-bottom: 50px;
+           color: #FFF;
+           text-align: center;
         }
 
-        header .intro-text .intro-lead-in {
+        #intro .intro-text .intro-lead-in {
           font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
           font-style: italic;
           font-size: 22px;
@@ -46,7 +57,7 @@
           margin-bottom: 25px;
         }
 
-        header .intro-text .intro-heading {
+        #intro .intro-text .intro-heading {
           font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
           text-transform: uppercase;
           font-weight: 700;
@@ -237,15 +248,19 @@
 
 
 <!--Inicio Header-->
-<header id="intro" class="intro-section">
-    <div class="container-fluid">
-        <div class="intro-text">
-            <div class="intro-lead-in">Bem Vindo</div>
-            <div class="intro-heading">Método de Estudo Pomodoro</div>
-            <a class="btn btn-pomodoro page-scroll" href="#Conceito">Iniciar</a>
+<div id="intro" class="intro-section">
+    <div class="background">
+        <aside class="dark">
+            <div class="container">
+                <div class="intro-text">
+                    <div class="intro-lead-in">Bem Vindo</div>
+                    <div class="intro-heading">Método de Estudo Pomodoro</div>
+                    <a class="btn btn-pomodoro page-scroll" href="#Conceito">Iniciar</a>
+                </div>
+            </div>    
+        </aside>
         </div>
     </div>
-</header>
 <!--Fim Header-->
 <section id="Conceito">
     <div class="container">
@@ -445,6 +460,27 @@
                     event.preventDefault();
                 });
             });
+
+            //Função para o menu
+            $(function () {
+                var nav = $(".navbar-inverse");
+                $(window).scroll(function () { 
+                    if ($(this).scrollTop() > 600) { 
+                        nav.css("background", "#222");
+                    }
+                    else {
+                        nav.css("background", "transparent");
+                    }
+                });
+            });
+                        
+                        
+            
+            
+                
+            
+            
+
 
         </script>
     }
