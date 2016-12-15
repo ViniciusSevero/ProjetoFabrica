@@ -60,7 +60,7 @@ namespace PomodoroTimer.Security
                 return new String[] { };
             }
             
-            //Seleciona as permissoes do usuario
+            //Seleciona as permissoes do usuario - Os modelos estao em Dominio/Models
             List<string> permissoes = login.Permissao.Select(p => p.Permissao1).ToList();
             
             //Converter para um array
