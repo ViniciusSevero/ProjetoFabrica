@@ -103,7 +103,35 @@
             -webkit-transition: all 0.218s;
             transition: all 0.218s;
         }
+        /*
 
+            CONCEITO
+
+        */
+
+        #Conceito .titulo{
+            font-size: 52px;
+            font-family: 'Gotham Light';
+            border-bottom: 1px solid #caa013;
+        }
+
+        .texto-conceito{
+            font-size: 17px;
+            font-family: 'Gotham Light';
+            text-align: justify;
+            font-weight: 600;
+            line-height: 30px;
+        }
+
+        .texto-conceito1{
+            margin-top: 10px;
+        }
+
+        /*
+
+            FORMULÁRIO DE CONTATO
+
+        */
         #form-contato .container {
             margin-top: 70px;
             margin-bottom: 70px;
@@ -111,9 +139,8 @@
 
         .titulo {
             margin-top: 6%;
-            font-family: Raleway;
+            font-family: 'Gotham Light';
             font-size: 32px;
-            font-weight: bold;
             letter-spacing: 3px;
             text-transform: uppercase;
             text-align: center;
@@ -234,24 +261,34 @@
     </div>
 </div>
 <!--Fim Header-->
+<!--
+
+    CONCEITO - SEÇÃO 1
+
+-->
+
 <section id="Conceito">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h2>Conceito</h2>
-                <div class="col-md-6" id="Pomodoro">
-                    <img src="~/Content/images/pomodoro-timer.png" width="350" height="300" />
-                </div>
-                <div class="col-md-6">
-                    <h3 style="display:inline-block">A Técnica Pomodoro é um método de gerenciamento de tempo desenvolvido por Francesco Cirillo no final dos anos 1980.</h3>
-                    <h3> A técnica consiste na utilização de um cronômetro para dividir o trabalho em períodos de 25 minutos, separados por breves intervalos.</h3>
-                    <h3> A técnica deriva seu nome da palavra italiana pomodoro (tomate), como referência ao popular cronômetro gastronômico na forma dessa fruta.</h3>
-                    <h3> O método é baseado na ideia de que pausas frequentes podem aumentar a agilidade mental.</h3>
-                </div>
+            <div class="col-md-4" id="Pomodoro">
+                <img src="~/Content/images/pomodoro-timer.png" width="350" height="300" style="margin-top: 70px;" />
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                <h2 class="titulo">Conceito</h2>
+                <h3 class="texto-conceito texto-conceito1">A Técnica Pomodoro é um método de gerenciamento de tempo desenvolvido por Francesco Cirillo no final dos anos 1980, que consiste na utilização de um cronômetro para dividir o trabalho em períodos de 25 minutos, separados por breves intervalos.</h3>
+                <h3 class="texto-conceito"> Seu nome da palavra italiana pomodoro (tomate), como referência ao popular cronômetro gastronômico na forma dessa fruta.</h3>
+                <h3 class="texto-conceito"> O método é baseado na ideia de que pausas frequentes podem aumentar a agilidade mental.</h3>
             </div>
         </div>
     </div>
 </section>
+<!--
+
+    COMO FUNCIONA - SEÇÃO 2
+
+-->
+
 <section id="ComoFunciona" style="background-color: #eee">
     <div class="container">
         <div class="row">
@@ -284,6 +321,12 @@
             </div>
         </div>
     </div>
+    <!--
+
+        GRÁFICOS - SEÇÃO 3
+
+    -->
+
 </section>
 <section id="secao3">
     <div class="container">
@@ -310,7 +353,7 @@
 
 <!--
 
-    FALE CONOSCO - SEÇÃO
+    FALE CONOSCO - SEÇÃO 4
 
 -->
 
