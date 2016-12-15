@@ -1,0 +1,560 @@
+﻿@model PomodoroTimer.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Logar";
+}
+@section Estilo{
+    <style>
+        /*
+         * Card component
+         */
+        .card {
+            background-color: #F7F7F7;
+            /* just in case there no content*/
+            padding: 20px 25px 30px;
+            margin: 0 200px 150px 25px;
+            margin-top: 50px;
+            /* shadows and rounded borders */
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-img-card {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 10px;
+            display: block;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        /*
+         * Form styles
+         */
+        .profile-name-card {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px 0 0;
+            min-height: 1em;
+        }
+
+        .reauth-email {
+            display: block;
+            color: #404040;
+            line-height: 2;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .form-signin #inputEmail,
+        .form-signin #inputPassword {
+            direction: ltr;
+            height: 44px;
+            font-size: 16px;
+        }
+
+        .form-signin input[type=email],
+        .form-signin input[type=password],
+        .form-signin input[type=text],
+        .form-signin button {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            z-index: 1;
+            position: relative;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .form-signin .form-control:focus {
+            border-color: rgb(104, 145, 162);
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+        }
+
+        .btn.btn-signin {
+            /*background-color: #4d90fe; */
+            background-color: rgb(104, 145, 162);
+            /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+            padding: 0px;
+            font-weight: 700;
+            font-size: 14px;
+            height: 36px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            border: none;
+            -o-transition: all 0.218s;
+            -moz-transition: all 0.218s;
+            -webkit-transition: all 0.218s;
+            transition: all 0.218s;
+        }
+
+        #form-contato .container {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .titulo {
+            margin-top: 6%;
+            font-family: Raleway;
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .caixa-texto {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+            font-family: 'Gotham Light';
+            font-size: 15px;
+            color: white;
+            width: 100%;
+            height: 50px;
+            padding-left: 20px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: border-color 0.3s;
+        }
+
+            .caixa-texto:focus, #form-contato textarea:focus {
+                outline: none;
+            }
+
+        #form-contato textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid white;
+            margin-bottom: 24px;
+            border-radius: 0;
+            padding: 16px 20px;
+            font-family: 'Gotham Light';
+            font-size: 15px;
+            color: white;
+            resize: none;
+            transition: border-color 0.3s;
+            max-width: 100%; 
+        }
+
+        #form-contato .titulo {
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+
+        .btn-enviar {
+            height: 50px;
+            line-height: 48px;
+            border: none;
+            background-color: #fed136;
+            color: #fff;
+            width: 100%;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 0 !important;
+            font-family: 'Open Sans';
+            opacity: .7;
+        }
+
+            .btn-enviar:hover {
+                opacity: 1;
+                transition: 0.5s;
+            }
+    </style>
+}
+@section Navbar{
+    <!--NavBar-->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <ul class="nav navbar-nav">
+            <li class="hidden">
+                <a class="page-scroll" href="#page-top"></a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#Conceito">Conceito</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#ComoFunciona">Como funciona</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#FaleConosco">Fale Conosco</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <!--Se pagina for Home -->
+            <li>
+                <a href="@Url.Action("Cadastrar", "Aluno")">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Cadastrar
+                </a>
+            </li>
+            <!--Se pagina não for Home -->
+            <li>
+                <a href="#">
+                    <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
+                        Entrar
+                    </span>
+                </a>
+            </li>
+        </ul>
+    }
+}
+
+<!--Inicio Header-->
+<div id="intro" class="intro-section" style="position: relative; min-height: 600px;">
+    <div class="background">
+        <aside class="dark">
+            <div class="container">
+                <div class="intro-text">
+                    <div class="intro-heading">Método de Estudo Pomodoro</div>
+                    <a class="btn btn-pomodoro page-scroll" href="#Conceito" style="position: absolute">Iniciar</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+<!--Fim Header-->
+<section id="Conceito">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Conceito</h2>
+                <div class="col-md-6" id="Pomodoro">
+                    <img src="~/Content/images/pomodoro-timer.png" width="350" height="300" />
+                </div>
+                <div class="col-md-6">
+                    <h3 style="display:inline-block">A Técnica Pomodoro é um método de gerenciamento de tempo desenvolvido por Francesco Cirillo no final dos anos 1980.</h3>
+                    <h3> A técnica consiste na utilização de um cronômetro para dividir o trabalho em períodos de 25 minutos, separados por breves intervalos.</h3>
+                    <h3> A técnica deriva seu nome da palavra italiana pomodoro (tomate), como referência ao popular cronômetro gastronômico na forma dessa fruta.</h3>
+                    <h3> O método é baseado na ideia de que pausas frequentes podem aumentar a agilidade mental.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="ComoFunciona" style="background-color: #eee">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Como Funciona</h2>
+                <div class="col-md-2" style="height: 200px;">
+
+
+                    <div class="Passo1">Escolha a Sessão</div>
+
+                </div>
+                <div class="col-md-1">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </div>
+                <div class="col-md-2" style="height: 200px;">
+
+                    <div class="Passo1">Escolha a Matéria</div>
+
+                </div>
+                <div class="col-md-2" style="margin-left:-60px; height: 200px;">
+
+                    <div class="Passo1">Execute a Tarefa</div>
+
+                </div>
+                <div class="col-md-2" style="height: 200px;">
+
+                    <div class="Passo1">Descanse</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="secao3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="chart_div"></div>
+            </div>
+            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
+
+                <p>Através deste gráfico, você consegue ter informações sobre o tempo de estudo por matéria</p>
+                <p>Você vai consegui organizar seu tempo melhor, controlando o tempo de estudo em cada matéria .</p>
+            </div>
+        </div><!--Fim row-->
+        <div class="row">
+            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
+                <p>Você vai conseguir avaliar o seu desempenho de outras maneiras, acompanhando mês a mês a sua evolução com os estudos.</p>
+            </div>
+            <div class="col-lg-6">
+                <div id="chart_div2" class="media-object"></div>
+            </div>
+        </div><!--Fim row-->
+    </div><!--Fim container-->
+</section>
+
+<!--
+
+    FALE CONOSCO - SEÇÃO
+
+-->
+
+<section style="background:black; color: #fed136" id="FaleConosco">
+    <div class="container">
+        <div class="row">
+            <form id="form-contato">
+                    <div class="container col-md-6 col-md-offset-3">
+                        <div class="row">
+                            <p class="titulo">Mande sua Mensagem</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <input type="text" placeholder="Nome" class="caixa-texto" id="form-nome" required style="max-width: 100%;"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <input type="email" placeholder="Email" class="caixa-texto" id="form-email" required style="max-width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <input type="text" placeholder="Telefone" class="caixa-texto" id="form-telefone" name="telefone" style="max-width: 100%;"/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <textarea placeholder="Mensagem" rows="5" id="form-msg" style="max-width: 100%;"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12">
+                                <button id="enviar" name="enviar" class="btn-enviar">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!--
+
+    TESTEMUNHAL/DEPOIMENTOS - SEÇÃO
+
+-->
+
+<section id="Depoimentos">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" data-wow-delay="0.2s">
+                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                    <!-- Bottom Carousel Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#quote-carousel" data-slide-to="0" class="active">
+                            <img class="img-responsive " src="https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg" alt="">
+                        </li>
+                        <li data-target="#quote-carousel" data-slide-to="1">
+                            <img class="img-responsive" src="https://s3.amazonaws.com/uifaces/faces/twitter/rssems/128.jpg" alt="">
+                        </li>
+                        <li data-target="#quote-carousel" data-slide-to="2">
+                            <img class="img-responsive" src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg" alt="">
+                        </li>
+                    </ol>
+                    <!-- Carousel Slides / Quotes -->
+                    <div class="carousel-inner text-center">
+                        <!-- Quote 1 -->
+                        <div class="item active">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Consegui evoluir demais com este método de estudo, eu recomendo à todos!</p>
+                                        <small>Matheus </small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 2 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Eu estudava demais algumas matérias e deixava outras de lado, depois que comecei a utiizar este método, consegui organizar melhor o meu estudo. </p>
+                                        <small>Alberto</small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 3 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p> A maneira com a qual consigo acompanhar meu desempenho com os estudos através de gráficos é sensacional!</p>
+                                        <small>Someone famous</small>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <!-- Carousel Buttons Next/Prev -->
+                    <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a>
+                    <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--modalLogar-->
+<div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
+    <div class="modal-dialog" role="document">
+        <div class="container">
+            <div class="card card-container">
+                <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <p id="profile-name" class="profile-name-card"></p>
+                @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
+                {
+                    <span id="reauth-email" class="reauth-email"></span>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
+                    @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
+                    <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
+                }
+                <!--
+                @MyHelper.MessageError(Model.Msg)-->
+            </div>
+            <!-- /card-contain
+            </div>
+            er -->
+            </d
+            iv>
+            <!--Fim cont
+            </div><!--Fim container-->
+        </div><!--Fim modal-dialog-->
+    </div><!--Fim modal-->
+    @section Scripts{
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/googlecharts.js"> </script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+              ['Matematica', 3],
+              ['Física', 1],
+              ['Química', 1],
+              ['Português', 1],
+              ['História', 2]
+            ]);
+
+            var options = {
+                'title': '% de minutos por Matéria',
+                'width': 600,
+                'height': 500,
+                //'is3D': true deixa o grafico em 3D
+                'legend': 'left', //controlar a posicao da legenda
+                'colors': ['#FF6384', '#36A2EB', '#FF7F00', '#d95454', '#32CD32']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Minutos');
+            data.addRows([
+              ['Janeiro', 1],
+              ['Fevereiro', 1],
+              ['Março', 3],
+              ['Abril', 1],
+              ['Maio', 2],
+              ['Junho', 2],
+            ]);
+
+            var options = {
+                'title': 'Quantidade de minutos por Mês',
+                'width': 500,
+                'height': 400,
+                //'is3D': true deixa o grafico em 3D
+                //'legend':'left' controlar a posicao da legenda
+                'colors': ['#36A2EB', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6', '#f6c7b6']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
+
+
+
+
+
+
+
+        //jQuery to collapse the navbar on scroll
+        $(window).scroll(function () {
+            if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
+                $(".navbar-fixed-top").addClass("top-nav-collapse");
+            } else {
+                $(".navbar-fixed-top").removeClass("top-nav-collapse");
+            }
+        });
+
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+        $(function () {
+            $('a.page-scroll').bind('click', function (event) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $($anchor.attr('href')).offset().top
+                }, 1500, 'easeInOutExpo');
+                event.preventDefault();
+            });
+        });
+
+        //Função para o menu
+        $(function () {
+            var nav = $(".navbar-inverse");
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 600) {
+                    nav.css("background", "#222");
+                }
+                else {
+                    nav.css("background", "transparent");
+                }
+            });
+        });
+
+
+    </script>
+}
+

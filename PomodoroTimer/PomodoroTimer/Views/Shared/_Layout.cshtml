@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    @RenderSection("Estilo", false)
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-custom" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Navbar Brand-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Pomodoro Timer", "Logar", "Autenticador", new { area = "" }, new { @class = "navbar-brand page-scroll" })
+                }
+                else
+                {
+                    <a class="navbar-brand page-scroll" href="#page-top">Pomodoro Timer</a>
+                }
+            </div>
+            <!--Condição para usuário autenticado-->
+            <div class="navbar-collapse collapse">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav">
+                        <!--Condição para Usuário Administrador-->
+                        @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ADMIN"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Aluno", "Cadastrar", "Aluno")</li>
+                                    <li> @Html.ActionLink("Curso", "Cadastrar", "Curso")</li>
+                                    <li> @Html.ActionLink("Materia", "Cadastrar", "Materia")</li>
+                                    <li> @Html.ActionLink("Tipo de Sessão", "Cadastrar", "TipoSessao")</li>
+                                    <li> @Html.ActionLink("Administrador", "Cadastrar", "Administrador")</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gráficos<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Tempo estudado por dia", "TempoDiario", "Graficos")</li>
+                                    <li>@Html.ActionLink("Tempo estudado por mês", "TempoMensal", "Graficos")</li>
+                                    <li>@Html.ActionLink("Matérias estudadas", "MateriasEstudadas", "Graficos")</li>
+                                </ul>
+                            </li>
+                        }
+                        <!--Condição para Usuário Aluno-->
+                        @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ALUNO"))
+                        {
+                            <li> @Html.ActionLink("Iniciar Sessão", "Index", "Sessao")</li>
+                            <li>@Html.ActionLink("Gráficos", "Visualizar", "Graficos")</li>
+                        }
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Olá @if (Session["TipoUsuario"] != null && Session["TipoUsuario"].Equals("ALUNO")) { @Session["Nome"]; } else { @User.Identity.Name}<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Sair", "Sair", "Autenticador")</li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                <!--Condição para Usuário Não Logado-->
+
+
+                    @RenderSection("Navbar", false)
+                }
+            </div>
+        </div>
+    </div>
+
+    @RenderSection("messageFluid", false)
+
+    @RenderBody()
+    
+    <div style="position: relative; height:100px;">
+        <footer class="footer" style="color: yellow; width: 100%; height:100%; background:black; position: absolute; bottom: 0; margin-bottom: -25px; padding: 45px 0px; ">
+            <div class="container text-center">
+
+                <span class="text-muted">© Pomodoro 2016. Todos os direitos reservados. Política de privacidade</span>
+            </div>
+        </footer>
+
+
+        <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+
+        <!--Área para as páginas adicionarem conteúdos-->
+        @RenderSection("Scripts", false)
+    </div>
+</body>
+</html>

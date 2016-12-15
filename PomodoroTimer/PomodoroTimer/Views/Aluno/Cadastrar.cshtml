@@ -1,0 +1,122 @@
+﻿@model PomodoroTimer.ViewModels.AlunoViewModel
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+@section Navbar{
+<!--NavBar-->
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <a href="#">
+            <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
+                Entrar
+            </span>
+        </a>
+    </li>
+</ul>
+}
+
+
+
+<div class="container">
+
+    <h2>Cadastrar Aluno</h2>
+
+    @MyHelper.Message(Model.Msg)
+
+    @using (@Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Nome)
+                    @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Nome)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Rm)
+                    @Html.TextBoxFor(m => m.Rm, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Rm)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.DtNascimento)
+                    @Html.TextBoxFor(m => m.DtNascimento, "{0:dd/MM/yyyy}", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.DtNascimento)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CursoId)
+                    @Html.DropDownListFor(m => m.CursoId, Model.Cursos, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.CursoId)
+                </div>
+            </div>
+        </div>
+
+        @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
+
+    }
+
+</div>
+
+    @section Scripts{
+        <script src="~/Scripts/jquery.validate.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/jquery-validate-fixes.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+        <script>
+            var isValid = false;
+
+            $(document).ready(function () {
+                $("#DtNascimento").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+                });
+
+                $("#Rm").focusout(function () {
+                    validarRm();
+                });
+            });
+
+            function validarRm() {
+                if ($("#Rm").val() != "") {
+                    $.ajax({
+                        url: "http://localhost:39324/Aluno/VerificarRm",
+                        type: "GET",
+                        data: { "rm": $("#Rm").val() },
+                        success: function (data) {
+                            if (data.existe) {
+                                $("#Rm").parent().addClass("has-error");
+                                $("#Rm").parent().find(".field-validation-valid").text("Esse RM já está cadastrado");
+                                $("#Rm").focus();
+                                $("#Cadastrar").prop("disabled", true);
+                            } else {
+                                $("#Rm").parent().removeClass("has-error");
+                                $("#Rm").parent().find(".field-validation-valid").text("");
+                                $("#Cadastrar").prop("disabled", false);
+                            }
+                        }
+                    });
+                }
+            }
+        </script>
+    }

@@ -1,0 +1,234 @@
+﻿@model List<PomodoroTimer.ViewModels.DiaEstudadoViewModel>
+
+@{
+    ViewBag.Title = "MediaMensalAluno";
+}
+
+@section Estilo{
+    <style>
+        #loading {
+            position: fixed;
+            width: 200px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        #line_top_x {
+            width: 100%;
+            height: 500px;
+            margin-top: 40px;
+        }
+
+        #columnchart_material {
+            width: 100%;
+            height: 500px;
+            margin-top: 40px;
+        }
+
+        #donutchart {
+            width: 100%;
+            height: 500px;
+            margin-top: 40px;
+        }
+    </style>
+}
+
+
+<div class="container">
+
+    <h2>@TempData["Aluno"]</h2>
+
+    <!-- Caso queira mexer na disposição dos graficos, essas 3 div representam cada um dos mesmos-->
+    <div id="line_top_x"></div>
+
+    <div id="columnchart_material"></div>
+
+    <div id="donutchart"></div>
+    <!-- -->
+
+
+
+    <img id="loading" class="img-responsive" src="@Url.Content("~/Content/images/loading.gif")" alt="loading gif" />
+
+</div>
+@section Scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+            var meses = new Array("Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez");
+            //carregar scripts primeiro
+            google.charts.load('current', { 'packages': ['line', 'bar', 'corechart'] });
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(requisitarDados);
+
+
+            var arrayCharBar = [];
+            var arrayChartDonut = [];
+
+            function requisitarDados() {
+                $.ajax({
+                    url: "http://localhost:39324/Graficos/GetTempoEstudadoDuranteAno",
+                    type: "GET",
+                    success: function (data) {
+                        var mesHoje = new Date().getMonth(); //0 == janeiro
+                        var array = [];
+                        array.push(['Mês', 'Minutos estudados pelo aluno', 'Média de min. estudados pelos alunos'])
+                        for (var i = 0; i <= mesHoje; i++) {
+                            var minMesAluno = 0;
+                            var minMedia = 0;
+
+                            for (var x = 0; x < data.listaAluno.length; x++) {
+                                //UnidadeDeGrupoEstudada == mes
+                                if (i + 1 == data.listaAluno[x].UnidadeDeGrupoEstudada) {
+                                    minMesAluno = data.listaAluno[x].Minutos
+                                    break;
+                                }
+                            }
+
+                            for (var x = 0; x < data.listaMedias.length; x++) {
+                                if (i + 1 == data.listaMedias[x].UnidadeDeGrupoEstudada) {
+                                    minMedia = data.listaMedias[x].Minutos
+                                    break;
+                                }
+                            }
+
+                            array.push([meses[i], minMesAluno, minMedia]);
+                        }
+                        arrayCharBar = array;
+                    }
+                }).done(function () {
+                    $.ajax({
+                        url: "http://localhost:39324/Graficos/GetMateriasEstudadas",
+                        type: "GET",
+                        success: function (data) {
+                            var array = [];
+                            array.push(["Matéria", "Tempo Estudado"]);
+                            for (var i = 0; i < data.lista.length; i++) {
+                                array.push([data.lista[i].Materia, data.lista[i].Minutos]);
+                            }
+                            arrayChartDonut = array;
+                            console.log(arrayChartDonut);
+                        }
+                    }).done(function () {
+                        $.ajax({
+                            url: "http://localhost:39324/Graficos/GetMediaMensalAluno",
+                            type: "GET",
+                            success: function (data) {
+                                var diaHoje = new Date().getDate();
+                                var array = [];
+                                for (var i = 1; i <= diaHoje; i++) {
+                                    var minAluno = 0;
+                                    var minMedia = 0;
+
+                                    for (var x = 0; x < data.listaAluno.length; x++) {
+                                        if (i == data.listaAluno[x].DiaEstudado) {
+                                            minAluno = data.listaAluno[x].Minutos
+                                            break;
+                                        }
+                                    }
+                                    for (var x = 0; x < data.listaMedias.length; x++) {
+                                        if (i == data.listaMedias[x].DiaEstudado) {
+                                            minMedia = data.listaMedias[x].Minutos
+                                            break;
+                                        }
+                                    }
+
+                                    array.push([i, minAluno, minMedia]);
+                                }
+
+                                console.log(array);
+
+                                $("#loading").fadeOut(500, function () {
+                                    $(this).remove();
+                                    drawChartDonut(arrayChartDonut);
+                                    drawChart(array);
+                                    drawChart2(arrayCharBar);
+
+                                })
+                            }
+                        });
+                    });
+                });
+
+            }
+
+            function drawChart(rows) {
+
+                var data = new google.visualization.DataTable();
+                data.addColumn('number', 'Dias');
+                data.addColumn('number', 'Minutos diários estudados pelo aluno');
+                data.addColumn('number', 'Média Aritmética de minutos diários estudados dentre todos os alunos');
+
+                data.addRows(rows);
+
+                var options = {
+                    chart: {
+                        title: 'Minutos estudados pelo Aluno por dia durante esse mês',
+                        subtitle: 'Em minutos'
+                    },
+                    width: '100%',
+                    height: 500,
+                    axes: {
+                        x: {
+                            0: { side: 'top' }
+                        }
+                    },
+
+                };
+
+                var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+                chart.draw(data, options);
+            }
+
+            function drawChart2(array) {
+                var data = google.visualization.arrayToDataTable(array);
+
+                var options = {
+                    chart: {
+                        title: 'Minutos estudados pelo aluno por mês',
+                        subtitle: 'Ano : ' + new Date().getFullYear(),
+                        width: '100%',
+                        height: 500
+                    }
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+                chart.draw(data, options);
+            }
+
+            function drawChartDonut(array) {
+                var data = google.visualization.arrayToDataTable(array);
+
+                var options = {
+                    pieHole: 0.4,
+                    title: 'Minutos estudados por matéria'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+            }
+
+
+            function preparaGifLoading() {
+                $("#loading").show();
+
+                var loading = document.querySelector('#loading'),
+                w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                x = w.innerWidth || e.clientWidth || g.clientWidth,
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+                loading.style.top = (y / 2) - (loading.clientHeight / 2) + 'px';
+                loading.style.left = (x / 2) - (loading.clientWidth / 2) + 'px';
+
+
+            }
+
+            $(document).ready(function () {
+                preparaGifLoading();
+            });
+    </script>
+}

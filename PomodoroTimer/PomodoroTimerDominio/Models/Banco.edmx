@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PomodoroTimerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Rm" Type="int" Nullable="false" />
+          <Property Name="DtNascimento" Type="date" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+          <Property Name="LoginId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Senha" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginPermissao">
+          <Key>
+            <PropertyRef Name="LoginId" />
+            <PropertyRef Name="PermissaoId" />
+          </Key>
+          <Property Name="LoginId" Type="int" Nullable="false" />
+          <Property Name="PermissaoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CursoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permissao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permissao" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sessao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoId" Type="int" Nullable="false" />
+          <Property Name="AlunoId" Type="int" Nullable="false" />
+          <Property Name="MateriaId" Type="int" Nullable="false" />
+          <Property Name="Observacao" Type="nvarchar" MaxLength="255" />
+          <Property Name="Data" Type="date" />
+        </EntityType>
+        <EntityType Name="TipoSessao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Duracao" Type="int" Nullable="false" />
+          <Property Name="TempoEstudo" Type="int" Nullable="false" />
+          <Property Name="TempoDescanso" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Aluno_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Aluno_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginPermissao_Login">
+          <End Role="Login" Type="Self.Login" Multiplicity="1" />
+          <End Role="LoginPermissao" Type="Self.LoginPermissao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginPermissao">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginPermissao_Permissao">
+          <End Role="Permissao" Type="Self.Permissao" Multiplicity="1" />
+          <End Role="LoginPermissao" Type="Self.LoginPermissao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginPermissao">
+              <PropertyRef Name="PermissaoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materia_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Materia" Type="Self.Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Materia">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Aluno">
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="1" />
+          <End Role="Sessao" Type="Self.Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Materia">
+          <End Role="Materia" Type="Self.Materia" Multiplicity="1" />
+          <End Role="Sessao" Type="Self.Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="MateriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Tipo">
+          <End Role="TipoSessao" Type="Self.TipoSessao" Multiplicity="1" />
+          <End Role="Sessao" Type="Self.Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSessao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PomodoroTimerDBModelStoreContainer">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginPermissao" EntityType="Self.LoginPermissao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissao" EntityType="Self.Permissao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sessao" EntityType="Self.Sessao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoSessao" EntityType="Self.TipoSessao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Aluno_Curso" Association="Self.FK_Aluno_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Aluno_Login" Association="Self.FK_Aluno_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginPermissao_Login" Association="Self.FK_LoginPermissao_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="LoginPermissao" EntitySet="LoginPermissao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginPermissao_Permissao" Association="Self.FK_LoginPermissao_Permissao">
+            <End Role="Permissao" EntitySet="Permissao" />
+            <End Role="LoginPermissao" EntitySet="LoginPermissao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materia_Curso" Association="Self.FK_Materia_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Materia" EntitySet="Materia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Aluno" Association="Self.FK_Sessao_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Materia" Association="Self.FK_Sessao_Materia">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Tipo" Association="Self.FK_Sessao_Tipo">
+            <End Role="TipoSessao" EntitySet="TipoSessao" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PomodoroTimerDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aluno">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rm" Type="Int32" Nullable="false" />
+          <Property Name="DtNascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Aluno_Curso" FromRole="Aluno" ToRole="Curso" />
+          <NavigationProperty Name="Sessao" Relationship="PomodoroTimerDBModel.FK_Sessao_Aluno" FromRole="Aluno" ToRole="Sessao" />
+          <Property Name="LoginId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Login" Relationship="PomodoroTimerDBModel.FK_Aluno_Login" FromRole="Aluno" ToRole="Login" />
+        </EntityType>
+        <EntityType Name="Curso">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="Self.FK_Aluno_Curso" FromRole="Curso" ToRole="Aluno" />
+          <NavigationProperty Name="Materia" Relationship="Self.FK_Materia_Curso" FromRole="Curso" ToRole="Materia" />
+        </EntityType>
+        <EntityType Name="Materia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CursoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Curso" Relationship="Self.FK_Materia_Curso" FromRole="Materia" ToRole="Curso" />
+          <NavigationProperty Name="Sessao" Relationship="PomodoroTimerDBModel.FK_Sessao_Materia" FromRole="Materia" ToRole="Sessao" />
+        </EntityType>
+        <EntityType Name="TipoSessao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Duracao" Type="Int32" Nullable="false" />
+          <Property Name="TempoEstudo" Type="Int32" Nullable="false" />
+          <Property Name="TempoDescanso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Sessao" Relationship="PomodoroTimerDBModel.FK_Sessao_Tipo" FromRole="TipoSessao" ToRole="Sessao" />
+        </EntityType>
+        <Association Name="FK_Aluno_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Aluno" Type="Self.Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Materia_Curso">
+          <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+          <End Role="Materia" Type="Self.Materia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Curso">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Materia">
+              <PropertyRef Name="CursoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aluno" EntityType="Self.Aluno" />
+          <EntitySet Name="Curso" EntityType="Self.Curso" />
+          <EntitySet Name="Materia" EntityType="Self.Materia" />
+          <EntitySet Name="TipoSessao" EntityType="Self.TipoSessao" />
+          <AssociationSet Name="FK_Aluno_Curso" Association="Self.FK_Aluno_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Materia_Curso" Association="Self.FK_Materia_Curso">
+            <End Role="Curso" EntitySet="Curso" />
+            <End Role="Materia" EntitySet="Materia" />
+          </AssociationSet>
+          <EntitySet Name="Sessao" EntityType="PomodoroTimerDBModel.Sessao" />
+          <AssociationSet Name="FK_Sessao_Aluno" Association="PomodoroTimerDBModel.FK_Sessao_Aluno">
+            <End Role="Aluno" EntitySet="Aluno" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Materia" Association="PomodoroTimerDBModel.FK_Sessao_Materia">
+            <End Role="Materia" EntitySet="Materia" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sessao_Tipo" Association="PomodoroTimerDBModel.FK_Sessao_Tipo">
+            <End Role="TipoSessao" EntitySet="TipoSessao" />
+            <End Role="Sessao" EntitySet="Sessao" />
+          </AssociationSet>
+          <EntitySet Name="Login" EntityType="PomodoroTimerDBModel.Login" />
+          <EntitySet Name="Permissao" EntityType="PomodoroTimerDBModel.Permissao" />
+          <AssociationSet Name="FK_Aluno_Login" Association="PomodoroTimerDBModel.FK_Aluno_Login">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Aluno" EntitySet="Aluno" />
+          </AssociationSet>
+          <AssociationSet Name="LoginPermissao" Association="PomodoroTimerDBModel.LoginPermissao">
+            <End Role="Login" EntitySet="Login" />
+            <End Role="Permissao" EntitySet="Permissao" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Sessao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoId" Type="Int32" Nullable="false" />
+          <Property Name="AlunoId" Type="Int32" Nullable="false" />
+          <Property Name="MateriaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Aluno" Relationship="PomodoroTimerDBModel.FK_Sessao_Aluno" FromRole="Sessao" ToRole="Aluno" />
+          <NavigationProperty Name="Materia" Relationship="PomodoroTimerDBModel.FK_Sessao_Materia" FromRole="Sessao" ToRole="Materia" />
+          <NavigationProperty Name="TipoSessao" Relationship="PomodoroTimerDBModel.FK_Sessao_Tipo" FromRole="Sessao" ToRole="TipoSessao" />
+          <Property Name="Observacao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Sessao_Aluno">
+          <End Type="PomodoroTimerDBModel.Aluno" Role="Aluno" Multiplicity="1" />
+          <End Type="PomodoroTimerDBModel.Sessao" Role="Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aluno">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="AlunoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Materia">
+          <End Type="PomodoroTimerDBModel.Materia" Role="Materia" Multiplicity="1" />
+          <End Type="PomodoroTimerDBModel.Sessao" Role="Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="MateriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sessao_Tipo">
+          <End Type="PomodoroTimerDBModel.TipoSessao" Role="TipoSessao" Multiplicity="1" />
+          <End Type="PomodoroTimerDBModel.Sessao" Role="Sessao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoSessao">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Sessao">
+              <PropertyRef Name="TipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Aluno" Relationship="PomodoroTimerDBModel.FK_Aluno_Login" FromRole="Login" ToRole="Aluno" />
+          <NavigationProperty Name="Permissao" Relationship="PomodoroTimerDBModel.LoginPermissao" FromRole="Login" ToRole="Permissao" />
+        </EntityType>
+        <EntityType Name="Permissao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permissao1" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Login" Relationship="PomodoroTimerDBModel.LoginPermissao" FromRole="Permissao" ToRole="Login" />
+        </EntityType>
+        <Association Name="FK_Aluno_Login">
+          <End Type="PomodoroTimerDBModel.Login" Role="Login" Multiplicity="1" />
+          <End Type="PomodoroTimerDBModel.Aluno" Role="Aluno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Login">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Aluno">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LoginPermissao">
+          <End Type="PomodoroTimerDBModel.Login" Role="Login" Multiplicity="*" />
+          <End Type="PomodoroTimerDBModel.Permissao" Role="Permissao" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PomodoroTimerDBModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Aluno">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Aluno">
+              <MappingFragment StoreEntitySet="Aluno">
+                <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Rm" ColumnName="Rm" />
+                <ScalarProperty Name="DtNascimento" ColumnName="DtNascimento" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Curso">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Curso">
+              <MappingFragment StoreEntitySet="Curso">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materia">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Materia">
+              <MappingFragment StoreEntitySet="Materia">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="CursoId" ColumnName="CursoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoSessao">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.TipoSessao">
+              <MappingFragment StoreEntitySet="TipoSessao">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Duracao" ColumnName="Duracao" />
+                <ScalarProperty Name="TempoEstudo" ColumnName="TempoEstudo" />
+                <ScalarProperty Name="TempoDescanso" ColumnName="TempoDescanso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sessao">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Sessao">
+              <MappingFragment StoreEntitySet="Sessao">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="MateriaId" ColumnName="MateriaId" />
+                <ScalarProperty Name="AlunoId" ColumnName="AlunoId" />
+                <ScalarProperty Name="TipoId" ColumnName="TipoId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Login">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissao">
+            <EntityTypeMapping TypeName="PomodoroTimerDBModel.Permissao">
+              <MappingFragment StoreEntitySet="Permissao">
+                <ScalarProperty Name="Permissao1" ColumnName="Permissao" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LoginPermissao" TypeName="PomodoroTimerDBModel.LoginPermissao" StoreEntitySet="LoginPermissao">
+            <EndProperty Name="Permissao">
+              <ScalarProperty Name="Id" ColumnName="PermissaoId" />
+            </EndProperty>
+            <EndProperty Name="Login">
+              <ScalarProperty Name="Id" ColumnName="LoginId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

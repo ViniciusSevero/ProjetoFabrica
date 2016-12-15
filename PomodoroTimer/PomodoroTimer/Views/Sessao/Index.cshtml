@@ -1,0 +1,344 @@
+﻿@model PomodoroTimer.ViewModels.SessaoViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section Estilo{
+    <style>
+        .container2 {
+            width: 410px;
+            height: 410px;
+            margin: 20px auto;
+        }
+
+        .digital {
+            list-style: none;
+            padding: 0;
+        }
+
+            .digital > li {
+                font-size: 30px;
+                font-family: Tahoma;
+                font-weight: bold;
+                display: inline-block;
+            }
+
+        .prec {
+            top: 45%;
+            position: relative;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+            .prec:after {
+                content: '%';
+            }
+
+        .circle {
+            position: relative;
+            top: 5px;
+            left: 5px;
+            text-align: center;
+            width: 400px;
+            height: 400px;
+            border-radius: 100%;
+            background-color: #d2eef5;
+        }
+
+        .active-border {
+            position: relative;
+            text-align: center;
+            width: 410px;
+            height: 410px;
+            border-radius: 100%;
+            background-color: #39B4CC;
+            background-image: linear-gradient(91deg, transparent 50%, #A2ECFB 50%), linear-gradient(90deg, #A2ECFB 50%, transparent 50%);
+        }
+
+        #alert-message {
+            position: fixed;
+            width: 100%;
+            z-index: 9999;
+            display: none;
+            font-size: 20px;
+        }
+    </style>
+}
+
+@section messageFluid{
+    <div class="container-fluid">
+        <div class="text-center alert" id="alert-message">
+        </div>
+    </div>
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+
+            <h2>Iniciar Sessão</h2>
+            @using (@Html.BeginForm())
+            {
+                @Html.HiddenFor(m => m.AlunoId)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.TipoId)
+                    @Html.DropDownListFor(m => m.TipoId, Model.TiposSessao, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.TipoId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MateriaId)
+                    @Html.DropDownListFor(m => m.MateriaId, Model.Materias, "Selecione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.MateriaId)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Observacao)
+                    @Html.TextAreaFor(m => m.Observacao,new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <h3 id="tempoEstudo">Tempo de Estudo:</h3>
+                    <h3 id="tempoDescanso">Tempo de Descanso:</h3>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="col-md-8">
+
+            @Html.Partial("_modalRelogio2")
+
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("_Audios")
+
+@section Scripts{
+    <script>
+
+        var h = 0;
+        var m = 0;
+        var s = 0;
+        var timer;
+        var fundo = 0;
+        var tempoAlarmeMin;
+        var tempoDescanso;
+        var percCorrido = 0;
+        var segundosCorridos = 0;
+        var tipo = "Estudo";
+
+        //var audio = document.getElementById('audio');
+
+        // function play() {
+        //  audio.play();
+        // }
+
+        function drawSector() {
+            var activeBorder = $("#activeBorder");
+            var prec = percCorrido;
+            if (prec > 100)
+                prec = 100;
+            var deg = prec * 3.6;
+            if (deg <= 180) {
+                activeBorder.css('background-image', 'linear-gradient(' + (90 + deg) + 'deg, transparent 50%, #A2ECFB 50%),linear-gradient(90deg, #A2ECFB 50%, transparent 50%)');
+            }
+            else {
+                activeBorder.css('background-image', 'linear-gradient(' + (deg - 90) + 'deg, transparent 50%, #39B4CC 50%),linear-gradient(90deg, #A2ECFB 50%, transparent 50%)');
+            }
+
+            var startDeg = $("#startDeg").attr("class");
+            activeBorder.css('transform', 'rotate(' + startDeg + 'deg)');
+            $("#circle").css('transform', 'rotate(' + (-startDeg) + 'deg)');
+
+
+        }
+
+        $(document).ready(function () {
+            //limpar erros
+            $("select").change(function () {
+                $(this).parent().removeClass("has-error");
+                $(this).parent().find(".field-validation-valid").text("");
+            });
+
+            $("#TipoId").change(function () {
+                if ($(this).val() != "") {
+                    $.ajax({
+                        url: "http://localhost:39324/Sessao/PegarTempoSessao",
+                        type: "GET",
+                        data: { "tipo": $(this).val() },
+                        success: function (data) {
+                            $("#tempoEstudo").text("Tempo de Estudo:" + data.estudo + "min.");
+                            $("#tempoDescanso").text("Tempo de Descanso:" + data.descanso + "min.");
+                            tempoAlarmeMin = data.estudo;
+                            tempoDescanso = data.descanso;
+                            limpar();
+                            atualizarElementos();
+                        }
+                    });
+                }
+            });
+
+        });
+
+
+        function tempo() {
+            if (h == 0 && m == 5 && s == 0 && tipo == "Estudo") {
+                slideMessage("<strong>Atenção!</strong> 5 minuto restante", "alert-warning");
+                cincoMin.play();
+            }
+
+            if (h == 0 && m == 1 && s == 0 && tipo == "Estudo") {
+                slideMessage("<strong>Atenção!</strong> 1 minuto restante", "alert-warning");
+                umMin.play();
+            }
+
+            if (h == 0 && m == 0 && s == 30) {
+                slideMessage("<strong>Atenção!</strong> 30 segundos restantes", "alert-warning");
+                trintaSeg.play();
+            }
+
+            if (m == 0 && s == 0 && h == 0 && tipo == "Estudo") {
+                tipo = "Descanso";
+                tempoAlarmeMin = tempoDescanso;
+                preparar();
+                slideMessage("<strong>Hora de descansar!</strong> Fim do tempo de estudo", "alert-info");
+                descansar.play();
+            }
+            if (m == 0 && s == 0 && h == 0 && tipo == "Descanso") {
+                pause();
+                //Not implemented
+                salvarSessao();
+                //
+                return;
+            }
+
+            if (h > 0 && m == 0 && s == 0) {
+                h--;
+                m = 59;
+                s = 59;
+            } else if (s == 0 && m > 0) {
+                s = 59;
+                m--;
+            } else {
+                s--;
+            }
+            segundosCorridos++;
+
+            //calcular graus por segundo
+            percCorrido = (segundosCorridos / (tempoAlarmeMin * 60)) * 100;//pra não dar 1 como 100%
+            $(".prec").text(percCorrido.toFixed(2));
+
+            atualizarElementos();
+
+        }
+
+        function start() {
+            if ($("#TipoId").val() != "" && $("#MateriaId").val() != "") {
+                timer = setInterval('tempo()', 1000);
+                document.getElementById("start").disabled = true;
+            } else {
+                if ($("#TipoId").val() == "") {
+                    $("#TipoId").parent().addClass("has-error");
+                    $("#TipoId").parent().find(".field-validation-valid").text("Selecione um Tipo de Sessão");
+                }
+                if ($("#MateriaId").val() == "") {
+                    $("#MateriaId").parent().addClass("has-error");
+                    $("#MateriaId").parent().find(".field-validation-valid").text("Selecione uma matéria");
+                }
+            }
+        }
+
+        function stop() {
+            clearInterval(timer);
+            document.getElementById("start").disabled = false;
+
+            limpar()
+            atualizarElementos();
+        }
+
+        function pause() {
+            clearInterval(timer);
+            document.getElementById("start").disabled = false;
+        }
+
+        function atualizarElementos() {
+
+
+            if (h < 10) {
+                document.getElementById('horas').innerHTML = '0' + h;
+            } else {
+                document.getElementById('horas').innerHTML = h;
+            }
+
+            if (m < 10) {
+                document.getElementById('minutos').innerHTML = '0' + m;
+            } else {
+                document.getElementById('minutos').innerHTML = m;
+            }
+
+            if (s < 10) {
+                document.getElementById('segundos').innerHTML = '0' + s;
+            } else {
+                document.getElementById('segundos').innerHTML = s;
+            }
+
+            drawSector();
+
+        }
+        function limpar() {
+            preparar();
+            tipo = "Estudo";
+        }
+
+        function preparar() {
+            percCorrido = 0;
+            segundosCorridos = 0;
+            $(".prec").text("0.0");
+            m = tempoAlarmeMin % 60;
+            h = parseInt(tempoAlarmeMin / 60);
+            s = 0;
+        }
+
+        function salvarSessao() {
+            // -------------
+
+            $.ajax({
+                url: "http://localhost:39324/api/Sessao",
+                type: "POST",
+                data: {
+                    "AlunoId": $("#AlunoId").val(),
+                    "TipoId": $("#TipoId").val(),
+                    "MateriaId": $("#MateriaId").val(),
+                    "Observacao": $("#Observacao").val(),
+                },
+                success: function (data) {
+                    slideMessage("<strong>Fim!</strong> Sessão concluída com sucesso", "alert-success");
+                    alerta.play();
+                    sesaoConcluida.play();
+                },
+                error: function () {
+                    slideMessage("<strong>Erro ao cadastrar Sessão!</strong>", "alert-danger");
+                }
+            });
+
+            
+        }
+
+        function slideMessage(msg, classe) {
+            $("#alert-message").slideUp(500);
+            $("#alert-message").removeClass("alert-info");
+            $("#alert-message").removeClass("alert-warning");
+            $("#alert-message").removeClass("alert-success");
+            $("#alert-message").removeClass("alert-danger");
+            $("#alert-message").addClass(classe);
+            $("#alert-message").html(msg);
+            $("#alert-message").slideDown(1100).delay(5000).slideUp(1000);
+        }
+    </script>
+}
+
+

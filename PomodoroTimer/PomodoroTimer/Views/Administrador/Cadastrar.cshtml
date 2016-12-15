@@ -1,0 +1,71 @@
+﻿@model PomodoroTimer.ViewModels.AdministradorViewModel
+
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<div class="container">
+
+    <h2>Cadastrar Administrador</h2>
+
+
+
+    @MyHelper.Message(Model.Msg)
+
+    @using (@Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Username)
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Username)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Senha)
+                    @Html.TextBoxFor(m => m.Senha, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Senha)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    @Html.Label("Digite sua senha novamente")
+                    @Html.TextBox("Senha2", null, new { @class = "form-control" })
+                    @Html.ValidationMessage("Senha2")
+                </div>
+            </div>
+        </div>
+
+        @MyHelper.Button("Cadastrar", "btn btn-primary")
+    }
+
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-validate-fixes.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+        $("#Cadastrar").click(function () {
+            if($("#Senha").val() != $("#Senha2").val()){
+                $("#Senha2").parent().addClass("has-error");
+                $("#Senha2").parent().find(".field-validation-valid").text("Senhas diferentes");
+                $("#Senha2").focus();
+            }else{
+                $("#Senha2").parent().removeClass("has-error");
+                $("#Senha2").parent().find(".field-validation-valid").text("");
+                $("form").submit();
+            }
+        });
+    });
+    </script>
+}

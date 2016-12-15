@@ -1,0 +1,31 @@
+﻿@import 'https://fonts.googleapis.com/css?family=Hind|Hind+Siliguri|Lato|Montserrat|Montserrat+Alternates|Noto+Sans|Open+Sans|Raleway|Roboto|Roboto+Condensed|Source+Sans+Pro';
+
+/* font-family: 'Montserrat', sans-serif;
+font-family: 'Montserrat Alternates', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+font-family: 'Noto Sans', sans-serif;
+font-family: 'Hind', sans-serif;
+font-family: 'Hind Siliguri', sans-serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif; */
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
