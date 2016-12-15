@@ -385,152 +385,160 @@
 </div><!--Fim modal-->
 
 
+@section Footer{
+    <div style="position: relative; height:100px;">
+    <footer class="rodape" style="color: yellow; width: 100%; height:100%; background:black; position: absolute; bottom: 0; margin-bottom: -25px; padding: 45px 0px; ">
+        <div class="container text-center">
+            <span class="text-muted">© Pomodoro 2016. Todos os direitos reservados. Política de privacidade</span>
+        </div>
+    </footer>
+</div>
+}
+
+
+
+@section Scripts{
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/googlecharts.js"> </script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart2);
+
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+              ['Matematica', 3],
+              ['Física', 1],
+              ['Química', 1],
+              ['Português', 1],
+              ['História', 2]
+            ]);
+
+            var options = {
+                'title': '% de minutos por Matéria',
+                'width': 600,
+                'height': 500,
+                //'is3D': true deixa o grafico em 3D
+                'legend': 'left', //controlar a posicao da legenda
+                'colors': ['#FF6384', '#36A2EB', '#FF7F00', '#d95454', '#32CD32']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function drawChart2() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Minutos');
+            data.addRows([
+              ['Janeiro', 1],
+              ['Fevereiro', 1],
+              ['Março', 3],
+              ['Abril', 1],
+              ['Maio', 2],
+              ['Junho', 2],
+            ]);
+
+            var options = {
+                'title': 'Quantidade de minutos por Mês',
+                'width': 500,
+                'height': 400,
+                //'is3D': true deixa o grafico em 3D
+                //'legend':'left' controlar a posicao da legenda
+                'colors': ['#36A2EB', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6', '#f6c7b6']//atribuir Cores
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
+            chart.draw(data, options);
+        }
 
 
 
 
-    @section Scripts{
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script src="~/Scripts/jquery.easing.min.js"></script>
-        <script type="text/javascript" src="js/googlecharts.js"> </script>
 
-        <script type="text/javascript">
-            google.charts.load('current', { 'packages': ['corechart'] });
-            google.charts.setOnLoadCallback(drawChart);
-            google.charts.setOnLoadCallback(drawChart2);
 
-            function drawChart() {
-
-                // Create the data table.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Topping');
-                data.addColumn('number', 'Slices');
-                data.addRows([
-                  ['Matematica', 3],
-                  ['Física', 1],
-                  ['Química', 1],
-                  ['Português', 1],
-                  ['História', 2]
-                ]);
-
-                var options = {
-                    'title': '% de minutos por Matéria',
-                    'width': 600,
-                    'height': 500,
-                    //'is3D': true deixa o grafico em 3D
-                    'legend':'left', //controlar a posicao da legenda
-                    'colors': ['#FF6384', '#36A2EB', '#FF7F00', '#d95454', '#32CD32']//atribuir Cores
-                };
-
-                // Instantiate and draw our chart, passing in some options.
-                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                chart.draw(data, options);
+        //jQuery to collapse the navbar on scroll
+        $(window).scroll(function () {
+            if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
+                $(".navbar-fixed-top").addClass("top-nav-collapse");
+            } else {
+                $(".navbar-fixed-top").removeClass("top-nav-collapse");
             }
+        });
 
-            function drawChart2() {
+        //jQuery for page scrolling feature - requires jQuery Easing plugin
+        $(function () {
+            $('a.page-scroll').bind('click', function (event) {
+                var $anchor = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $($anchor.attr('href')).offset().top
+                }, 1500, 'easeInOutExpo');
+                event.preventDefault();
+            });
+        });
 
-                // Create the data table.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Topping');
-                data.addColumn('number', 'Minutos');
-                data.addRows([
-                  ['Janeiro', 1],
-                  ['Fevereiro', 1],
-                  ['Março', 3],
-                  ['Abril', 1],
-                  ['Maio', 2],
-                  ['Junho', 2],
-                ]);
-
-                var options = {
-                    'title': 'Quantidade de minutos por Mês',
-                    'width': 500,
-                    'height': 400,
-                    //'is3D': true deixa o grafico em 3D
-                    //'legend':'left' controlar a posicao da legenda
-                    'colors': ['#36A2EB', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6', '#f6c7b6']//atribuir Cores
-                };
-
-                // Instantiate and draw our chart, passing in some options.
-                var chart = new google.visualization.BarChart(document.getElementById('chart_div2'));
-                chart.draw(data, options);
-            }
-
-
-
-
-
-
-
-            //jQuery to collapse the navbar on scroll
+        //Função para o menu
+        $(function () {
+            var nav = $(".navbar-inverse");
             $(window).scroll(function () {
-                if ($(".navbar").offset().top > 50) {//offset pega a posicao atual
-                    $(".navbar-fixed-top").addClass("top-nav-collapse");
-                } else {
-                    $(".navbar-fixed-top").removeClass("top-nav-collapse");
+                if ($(this).scrollTop() > 600) {
+                    nav.css("background", "#222");
+                }
+                else {
+                    nav.css("background", "transparent");
                 }
             });
+        });
 
-            //jQuery for page scrolling feature - requires jQuery Easing plugin
-            $(function () {
-                $('a.page-scroll').bind('click', function (event) {
-                    var $anchor = $(this);
-                    $('html, body').stop().animate({
-                        scrollTop: $($anchor.attr('href')).offset().top
-                    }, 1500, 'easeInOutExpo');
-                    event.preventDefault();
-                });
+        //Validar Logar
+        $(document).ready(function () {
+            $("#Senha").focusout(function () {
+                validarAutenticacao();
             });
-
-            //Função para o menu
-            $(function () {
-                var nav = $(".navbar-inverse");
-                $(window).scroll(function () { 
-                    if ($(this).scrollTop() > 600) { 
-                        nav.css("background", "#222");
-                    }
-                    else {
-                        nav.css("background", "transparent");
-                    }
-                });
-            });
-                        
-            //Validar Logar
-            $(document).ready(function () {
-                $("#Senha").focusout(function () {
-                    validarAutenticacao();
-                });
-            });
+        });
 
 
-            function validarAutenticacao() {
-                if (($("#Username").val() != "") && ($("#Senha").val() != "")) {
-                    $.ajax({
-                        url: "http://localhost:39324/Autenticador/ValidarLogin",
-                        type: "GET",
-                        data: { 
-                            "username": $("#Username").val(),
-                            "senha" : $("#Senha").val(), 
-                        },
-                        success: function (data) {
-                            if ((!data.username) || (!data.senha)) {
-                                $("#Senha").parent().addClass("has-error");
-                                $("#Senha").parent().find(".field-validation-valid").text("Usuário ou Senha Inválida");
-                                $("#Username").focus();
-                                $("#Logar").prop("disabled", true);
-                            } else {
-                                $("#Senha").parent().removeClass("has-error");
-                                $("#Senha").parent().find(".field-validation-valid").text("");
-                                $("#Logar").prop("disabled", false);
-                            }
+        function validarAutenticacao() {
+            if (($("#Username").val() != "") && ($("#Senha").val() != "")) {
+                $.ajax({
+                    url: "http://localhost:39324/Autenticador/ValidarLogin",
+                    type: "GET",
+                    data: {
+                        "username": $("#Username").val(),
+                        "senha": $("#Senha").val(),
+                    },
+                    success: function (data) {
+                        if ((!data.username) || (!data.senha)) {
+                            $("#Senha").parent().addClass("has-error");
+                            $("#Senha").parent().find(".field-validation-valid").text("Usuário ou Senha Inválida");
+                            $("#Username").focus();
+                            $("#Logar").prop("disabled", true);
+                        } else {
+                            $("#Senha").parent().removeClass("has-error");
+                            $("#Senha").parent().find(".field-validation-valid").text("");
+                            $("#Logar").prop("disabled", false);
                         }
-                    });
-                }
+                    }
+                });
             }
+        }
 
-        </script>
-    }
+    </script>
+}
 
 

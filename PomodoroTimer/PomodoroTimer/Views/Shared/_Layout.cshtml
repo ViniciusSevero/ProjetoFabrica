@@ -94,12 +94,8 @@
 
     @RenderBody()
     
-    <div style="position: relative; height:100px;">
-        <footer class="rodape" style="color: yellow; width: 100%; height:100%; background:black; position: absolute; bottom: 0; margin-bottom: -25px; padding: 45px 0px; ">
-            <div class="container text-center">
-                <span class="text-muted">© Pomodoro 2016. Todos os direitos reservados. Política de privacidade</span>
-            </div>
-        </footer>
+    @RenderSection("Footer", false)
+    
 
 
         <script src="~/Scripts/jquery-1.12.4.min.js"></script>
@@ -107,6 +103,6 @@
 
         <!--Área para as páginas adicionarem conteúdos-->
         @RenderSection("Scripts", false)
-    </div>
+    
 </body>
 </html>
