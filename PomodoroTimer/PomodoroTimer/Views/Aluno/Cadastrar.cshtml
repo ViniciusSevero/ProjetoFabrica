@@ -4,18 +4,20 @@
     ViewBag.Title = "Cadastrar";
 }
 
-@section Navbar{
-<!--NavBar-->
-<ul class="nav navbar-nav navbar-right">
-    <li>
-        <a href="#">
-            <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
-                Entrar
-            </span>
-        </a>
-    </li>
-</ul>
+@section Estilo{
+    <style>
+        body{
+            background: black;
+        }
+    .rodape{
+        margin-bottom: -120px;
+        position: absolute;
+        bottom: 0;
+        
+    }
+    </style>
 }
+
 
 
 
@@ -68,6 +70,8 @@
         @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
 
     }
+
+
 
 </div>
 

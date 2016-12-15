@@ -41,7 +41,7 @@ namespace PomodoroTimer.Controllers
                 _unit.AlunoRepository.Cadastrar(a);
                 _unit.Save();
 
-                return RedirectToAction("Cadastrar", new { msg = "Aluno cadastrado com sucesso" });
+                return RedirectToAction("Logar", "Autenticador");
             }else {
                 alunoVM.Cursos = carregarCursos();
                 return View(alunoVM);

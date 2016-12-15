@@ -5,7 +5,9 @@
 
 @section Estilo{
     <style>
- 
+        .navbar-inverse{
+            background: transparent;
+        }
         /*
          * Card component
          */
@@ -359,28 +361,28 @@
     </div>
 </section>
 
-<!--modalLogar-->
-    <div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
-        <div class="modal-dialog" role="document">
-             <div class="container">
-                  <div class="card card-container">
-                   <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-                      <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-                       <p id="profile-name" class="profile-name-card"></p>
-                          @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
-                            {
-                               <span id="reauth-email" class="reauth-email"></span>
-                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
-                                @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
-                                <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
-                            }
-                            <!--
-                            @MyHelper.MessageError(Model.Msg)-->
-                   </div><!-- /card-container -->
-              </div><!--Fim container-->
-        </div><!--Fim modal-dialog-->
-    </div><!--Fim modal-->
     
+        <!--modalLogar-->
+<div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
+    <div class="modal-dialog" role="document">
+        <div class="container">
+            <div class="card card-container">
+                <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <p id="profile-name" class="profile-name-card"></p>
+                @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
+                {
+                    <span id="reauth-email" class="reauth-email"></span>
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
+                            @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
+                            <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
+                }
+                <!--
+                @MyHelper.MessageError(Model.Msg)-->
+            </div><!-- /card-container -->
+        </div><!--Fim container-->
+    </div><!--Fim modal-dialog-->
+</div><!--Fim modal-->
 
 
 
