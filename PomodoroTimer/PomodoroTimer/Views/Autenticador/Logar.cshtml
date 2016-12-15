@@ -366,19 +366,19 @@
 <div class="modal fade" id="modalLogar" tabindex="-1" role="dialog" aria-labelledby="modalLogar">
     <div class="modal-dialog" role="document">
         <div class="container">
-            <div class="card card-container">
+            <div class="card card-container" style="background: #FFD700">
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <h3 class="text-center" style="font-weight: 800; text-shadow: 4px 4px 2px rgba(150, 150, 150, 1); color: #fff">Pomodoro Timer</h3>
                 <p id="profile-name" class="profile-name-card"></p>
                 @using (Html.BeginForm("Logar", "Autenticador", FormMethod.Post, new { @class = "form-signin" }))
                 {
                     <span id="reauth-email" class="reauth-email"></span>
                             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "RM", required = "required", autofocus = "autofocus" })
                             @Html.PasswordFor(m => m.Senha, new { @class = "form-control", placeholder = "Senha", required = "required", autofocus = "autofocus" })
-                            <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar">
+                            <span class="field-validation-valid" data-valmsg-for="Nome" data-valmsg-replace="true"></span>
+                            <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar" id="Logar" style="background: black; color: #fed136">
+                            
                 }
-                <!--
-                @MyHelper.MessageError(Model.Msg)-->
             </div><!-- /card-container -->
         </div><!--Fim container-->
     </div><!--Fim modal-dialog-->
@@ -497,6 +497,38 @@
                 });
             });
                         
+            //Validar Logar
+            $(document).ready(function () {
+                $("#Senha").focusout(function () {
+                    validarAutenticacao();
+                });
+            });
+
+
+            function validarAutenticacao() {
+                if (($("#Username").val() != "") && ($("#Senha").val() != "")) {
+                    $.ajax({
+                        url: "http://localhost:39324/Autenticador/ValidarLogin",
+                        type: "GET",
+                        data: { 
+                            "username": $("#Username").val(),
+                            "senha" : $("#Senha").val(), 
+                        },
+                        success: function (data) {
+                            if ((!data.username) || (!data.senha)) {
+                                $("#Senha").parent().addClass("has-error");
+                                $("#Senha").parent().find(".field-validation-valid").text("Usuário ou Senha Inválida");
+                                $("#Username").focus();
+                                $("#Logar").prop("disabled", true);
+                            } else {
+                                $("#Senha").parent().removeClass("has-error");
+                                $("#Senha").parent().find(".field-validation-valid").text("");
+                                $("#Logar").prop("disabled", false);
+                            }
+                        }
+                    });
+                }
+            }
 
         </script>
     }

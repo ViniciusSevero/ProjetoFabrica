@@ -22,6 +22,23 @@ namespace PomodoroTimer.Controllers
             return View(new LoginViewModel() { Msg = msg});
         }
 
+
+        #region AJAX
+        public ActionResult ValidarLogin(string username, string senha)
+        {
+            //retorna true se existir login no banco de dados
+            //retorna true se existir senha no banco de dados
+
+            bool usernameOk = _unit.LoginRepository.BuscarPor(l => l.Username == username).Any();
+            bool senhaOk = _unit.LoginRepository.BuscarPor(l => l.Senha == senha).Any();
+
+            
+            //retorna json existe
+            return Json(new { username = usernameOk, senha = senhaOk }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
         [HttpPost]
         public ActionResult Logar(LoginViewModel login)
         {
@@ -42,9 +59,11 @@ namespace PomodoroTimer.Controllers
                     return RedirectToAction("Index", "Sessao");
                 }
                
-            }else
+            }
+            
+            else
             {
-                return RedirectToAction("Logar", new { msg = "Usuário e/ou senha inválidos"});
+                return RedirectToAction("Logar");
             }
             
         }
@@ -62,5 +81,6 @@ namespace PomodoroTimer.Controllers
         {
             return View();
         }
+
     }
 }
