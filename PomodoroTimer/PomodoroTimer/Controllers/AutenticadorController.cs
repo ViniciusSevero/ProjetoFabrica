@@ -21,29 +21,40 @@ namespace PomodoroTimer.Controllers
         {
             return View(new LoginViewModel() { Msg = msg});
         }
-
+        
+        
         [HttpPost]
         public ActionResult Logar(LoginViewModel login)
         {
+            //conflito 2 repository
             LoginRepository loginRepository = (LoginRepository) _unit.LoginRepository;
+            
+            //Validar nome consta Repositories/LoginRepository.cs, retorna objeto login, caso exista
             Login l = loginRepository.ValidarLogin(login.Username, login.Senha);
 
-            if (l != null)
+            if (l != null)//Se cliente localizado
             {
+                //Se permissao == a ADMIN
                 if (l.Permissao.Select(p => p.Permissao1 == "ADMIN").Single())
                 {
+                    //sessao tipo de usuario recebe Admin
                     Session["TipoUsuario"] = "ADMIN";
+                    //redirecionar pagina para controller Aluno, Cadastrar, #corrigir
                     return RedirectToAction("Cadastrar", "Aluno");
                 }
                 else
                 {
+                    //Sessao tipousuario recebe aluno
                     Session["TipoUsuario"] = "ALUNO";
+                    //Sessao Nome recebe , nome do aluno
                     Session["Nome"] = l.Aluno.First().Nome;
+                    //redirezionar para a Index do controller sessao
                     return RedirectToAction("Index", "Sessao");
                 }
                
             }else
             {
+                //Se usuario e login estiverem incorretos, redirecionar para action Logar com a mensagem abaixo
                 return RedirectToAction("Logar", new { msg = "Usuário e/ou senha inválidos"});
             }
             
