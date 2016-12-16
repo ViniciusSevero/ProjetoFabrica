@@ -10,7 +10,7 @@ using Filtros.Security;
 
 namespace PomodoroTimer.Controllers
 {
-    //[PermissoesFiltro(Roles = "ADMIN")]
+    [PermissoesFiltro(Roles = "ADMIN")]
     public class TipoSessaoController : Controller
     {
         private UnitOfWork _unit = new UnitOfWork();
