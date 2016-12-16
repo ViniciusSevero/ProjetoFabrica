@@ -26,6 +26,15 @@ namespace PomodoroTimer.Controllers
             return View(alunoVM);
         }
 
+
+        [HttpGet]
+        public ActionResult Listar()
+        {
+            var lista = _unit.AlunoRepository.Listar();
+                
+            return View(lista);
+        }
+
         [HttpPost]
         public ActionResult Cadastrar(AlunoViewModel alunoVM)
         {
@@ -63,5 +72,7 @@ namespace PomodoroTimer.Controllers
             return Json(new { existe = jaExiste }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+
     }
 }

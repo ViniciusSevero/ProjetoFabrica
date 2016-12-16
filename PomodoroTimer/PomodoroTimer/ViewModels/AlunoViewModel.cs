@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PomodoroTimerDominio.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace PomodoroTimer.ViewModels
 {
     public class AlunoViewModel
     {
+
+        public ICollection<Aluno> Alunos { get; set; }
+
         public int Id { get; set; }
         [Required(ErrorMessage = "Nome Obrigatório")]
         public string Nome { get; set; }

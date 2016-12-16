@@ -6,11 +6,23 @@
         /*
          * Navbar style
          */
-        
-        .navbar-custom {
-            border-color: transparent;
+        .dropdown-menu{
+            background: #222;
         }
 
+        
+
+        .dropdown-menu li a:hover{
+            background: transparent;
+            color: #fed136;
+        }
+
+        .navbar-inverse{
+            border-color: transparent;
+        }        
+
+        
+        
         .nav>li>a{
             padding: 15px 0px 10px 0px;
             margin-right: 20px; 

@@ -1,0 +1,28 @@
+﻿@model ICollection<PomodoroTimerDominio.Models.Aluno>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Listar</h2>
+
+<table class="table table-striped" style="width: 50%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Rm</th>
+            <th>Nome</th>
+            <th>Curso</th>
+        </tr>
+    </thead>
+    <tbody id="tabela">
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Rm</td>
+                <td>@item.Nome</td>
+                <td>@item.Curso.Nome</td>
+            </tr>
+        }
+    </tbody>
+</table>
