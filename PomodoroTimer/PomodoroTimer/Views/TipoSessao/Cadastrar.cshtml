@@ -3,59 +3,155 @@
 @{
     ViewBag.Title = "Cadastrar";
 }
+@section Estilo{
+    <style>
+        /*
 
+            FORMULÁRIO DE CADASTRO
+
+        */
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .titulo {
+            font-family: 'Gotham Light';
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #caa013;
+            font-weight: 600;
+        }
+
+        .textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            margin-bottom: 24px;
+            border-radius: 0;
+            padding: 16px 20px;
+            font-family: 'Gotham Light' !important;
+            font-size: 15px;
+            color: #333;
+            resize: none;
+            transition: border-color 0.3s;
+            max-width: 100%;
+        }
+
+        .textarea1 {
+            width: 100%;
+            border: none;
+            background: #e2e2e2;
+            border: none;
+            border-bottom: 1px solid #333;
+            margin-bottom: 24px;
+            border-radius: 0;
+            padding: 16px 20px;
+            font-family: 'Gotham Light' !important;
+            font-size: 15px;
+            color: #333;
+            resize: none;
+            transition: border-color 0.3s;
+            max-width: 100%;
+        }
+
+        .cadastro {
+            margin-top: 50px;
+            padding: 35px 20px;
+            color: #333;
+        }
+
+        .btn-enviar {
+            height: 50px;
+            line-height: 48px;
+            border: none;
+            background-color: #caa013;
+            color: #fff;
+            width: 100%;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 0 !important;
+            font-family: 'Open Sans';
+            margin-left: 130px;
+            margin-top: 30px;
+        }
+
+            .btn-enviar:hover {
+                color: #caa013;
+                background-color: #fff;
+                transition: 0.5s;
+            }
+
+        .formulario {
+            margin-top: 80px;
+        }
+    </style>
+}
 
 <div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="titulo">Cadastrar<br /> Tipo de Sessão</h2>
+            <div class="formulario">
+                @MyHelper.Message(Model.Msg)
+                @using (@Html.BeginForm())
+                {
 
-    <h2>Cadastrar Tipo de Sessão</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Tipo)
+                                @Html.TextBoxFor(m => m.Tipo, new { @class = "textarea" })
+                                @Html.ValidationMessageFor(m => m.Tipo)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Duracao)
+                                @Html.TextBoxFor(m => m.Duracao, new { @class = "textarea" })
+                                @Html.ValidationMessageFor(m => m.Duracao)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.TempoEstudo)
+                                @Html.TextBoxFor(m => m.TempoEstudo, new { @class = "textarea" })
+                                @Html.ValidationMessageFor(m => m.TempoEstudo)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.TempoDescanso)
+                                @Html.TextBox("TempoDescansoMock", Model.TempoDescanso, new { @class = "textarea1" })
+                                @Html.HiddenFor(m => m.TempoDescanso)
+                                @Html.ValidationMessageFor(m => m.TempoDescanso)
+                            </div>
+                        </div>
+                    </div>
 
-    @MyHelper.Message(Model.Msg)
 
-    @using (@Html.BeginForm())
-    {
+                    @MyHelper.InputSubmit("Cadastrar", "btn btn-enviar")
+                }
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Tipo)
-                    @Html.TextBoxFor(m => m.Tipo, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Tipo)
-                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Duracao)
-                    @Html.TextBoxFor(m => m.Duracao, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Duracao)
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.TempoEstudo)
-                    @Html.TextBoxFor(m => m.TempoEstudo, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.TempoEstudo)
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.TempoDescanso)
-                    @Html.TextBox("TempoDescansoMock", Model.TempoDescanso, new { @class = "form-control" })
-                    @Html.HiddenFor(m => m.TempoDescanso)
-                    @Html.ValidationMessageFor(m => m.TempoDescanso)
-                </div>
-            </div>
-        </div>
-
-
-        @MyHelper.InputSubmit("Cadastrar", "btn btn-primary")
-    }
-
+    </div>
 </div>
 
     @section Scripts{
