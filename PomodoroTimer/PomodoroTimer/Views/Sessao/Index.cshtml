@@ -7,9 +7,9 @@
 @section Estilo{
     <style>
         .container2 {
-            width: 410px;
-            height: 410px;
-            margin: 20px auto;
+            width: 310px;
+            height: 310px;
+            margin: 40px auto;
         }
 
         .digital {
@@ -40,8 +40,8 @@
             top: 5px;
             left: 5px;
             text-align: center;
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             border-radius: 100%;
             background-color: #d2eef5;
         }
@@ -49,8 +49,8 @@
         .active-border {
             position: relative;
             text-align: center;
-            width: 410px;
-            height: 410px;
+            width: 310px;
+            height: 310px;
             border-radius: 100%;
             background-color: #39B4CC;
             background-image: linear-gradient(91deg, transparent 50%, #A2ECFB 50%), linear-gradient(90deg, #A2ECFB 50%, transparent 50%);
@@ -86,9 +86,20 @@
             margin-left: 5px;
         }
 
-        
+
         .raleway {
             font-family: 'Raleway', sans-serif !important;
+        }
+
+
+
+        .container > .row {
+            border: 2px solid #222;
+            box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+        }
+
+        .container > .row #hub {
+            padding-left: 0;
         }
     </style>
 }
@@ -103,7 +114,7 @@
 
 <div class="container" style="margin-top: 60px;">
     <div class="row" style="margin-left: 0.1px;">
-        <div class="col-md-6">
+        <div class="col-md-6" id="hub">
             <div class="col-md-12" style="background-color: #333333; color: #d0d0d0; font-size: 14px; padding: 15px; height: 540px;">
                 <h2 style="letter-spacing: 1px; font-weight: 700; margin-left: 5px;">Iniciar Sessão</h2>
                 @using (@Html.BeginForm())
@@ -142,11 +153,11 @@
                     </div>
                 }
             </div>
-            </div>
-            <div class="col-md-6">
-                @Html.Partial("_modalRelogio2")
-            </div>
         </div>
+        <div class="col-md-6">
+            @Html.Partial("_modalRelogio2")
+        </div>
+    </div>
 
 </div>
 
@@ -360,7 +371,7 @@
                 }
             });
 
-            
+
         }
 
         function slideMessage(msg, classe) {

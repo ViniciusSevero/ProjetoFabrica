@@ -1,32 +1,26 @@
-﻿@model PomodoroTimer.ViewModels.AlunoViewModel
-
+﻿﻿@model PomodoroTimer.ViewModels.AlunoViewModel
 @{
     ViewBag.Title = "Cadastrar";
 }
-
 @section Estilo{
     <style>
-        body{
-            background: black;
+
+        .rodape {
+            margin-bottom: -120px;
+            position: absolute;
+            bottom: 0;
         }
-    .rodape{
-        margin-bottom: -120px;
-        position: absolute;
-        bottom: 0;
-        
-    }
+
+        #ui-datepicker-div{
+            display:none;
+        }
     </style>
 }
 
 
-
-
 <div class="container">
-
     <h2>Cadastrar Aluno</h2>
-
     @MyHelper.Message(Model.Msg)
-
     @using (@Html.BeginForm())
     {
 
@@ -71,17 +65,13 @@
 
     }
 
-
-
 </div>
-
-    @section Scripts{
-        <script src="~/Scripts/jquery.validate.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-        <script src="~/Scripts/jquery-validate-fixes.js"></script>
-        <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
-
-        <script>
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-validate-fixes.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script>
             var isValid = false;
 
             $(document).ready(function () {
@@ -122,5 +112,5 @@
                     });
                 }
             }
-        </script>
-    }
+    </script>
+}

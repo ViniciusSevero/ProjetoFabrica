@@ -111,44 +111,7 @@
 
 }
 
-@section Navbar{
-<!--NavBar-->
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <ul class="nav navbar-nav">
-            <li class="hidden">
-                <a class="page-scroll" href="#page-top"></a>
-            </li>
-            <li>
-                <a class="page-scroll" href="#Conceito">Conceito</a>
-            </li>
-            <li>
-                <a class="page-scroll" href="#ComoFunciona">Como funciona</a>
-            </li>
-            <li>
-                <a class="page-scroll" href="#FaleConosco">Fale Conosco</a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <!--Se pagina for Home -->
 
-            <li>
-                <a href="@Url.Action("Cadastrar", "Aluno")">
-                    <span class="glyphicon glyphicon-user"></span>
-                    Cadastrar
-                </a>
-            </li>
-            <!--Se pagina não for Home -->
-            <li>
-                <a href="#">
-                    <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
-                        Entrar
-                    </span>
-                </a>
-            </li>
-        </ul>
-    }
-}
 
 
 <!--Inicio Header-->

@@ -64,9 +64,9 @@ namespace PomodoroTimer.Controllers
                 //Salvar
                 _unit.Save();
 
-                return RedirectToAction("Logar", "Autenticador");
+                
                  //redirecionar para Cadastrar   
-                //return RedirectToAction("Cadastrar", new { msg = "Aluno cadastrado com sucesso" });
+                return RedirectToAction("Cadastrar", new { msg = "Aluno cadastrado com sucesso" });
 
             }else {
                 //Seão for validado, devolve a lista de Cursos
