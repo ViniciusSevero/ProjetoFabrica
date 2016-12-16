@@ -3,11 +3,60 @@
     ViewBag.Title = "Negado";
 }
 
+@section Estilo{
+    <style>
+        /*
 
+            FORMULÁRIO DE CADASTRO
+
+        */
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .titulo {
+            font-family: 'Gotham Light';
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #c3090a;
+            font-weight: 600;
+        }
+
+        .voltar {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            font-family: 'Gotham Light';
+        }
+
+        footer{
+            margin-bottom: 0;
+        }
+
+        .formulario{
+            margin-top: 75px;
+            padding: 35px 20px;
+        }
+
+    </style>
+}
 <div class="container">
-
-    <h2>Acesso Negado</h2>
-
-    @Html.ActionLink("Voltar", "Index", "Sessao")
-
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="formulario">
+                <h2 class="titulo">Acesso Negado</h2>
+                <div class="voltar">
+                    @Html.ActionLink("Voltar", "Index", "Sessao")
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
