@@ -31,10 +31,19 @@ namespace PomodoroTimer.Controllers
         [HttpGet]
         public ActionResult Listar()
         {
-            var lista = _unit.AlunoRepository.Listar();
-                
-            return View(lista);
+
+            return Json(GetListAlunos(), JsonRequestBehavior.AllowGet);
         }
+
+
+        private SelectList GetListAlunos()
+        {
+            var lista = _unit.AlunoRepository.Listar();
+            SelectList list = new SelectList(lista);
+            return list;
+        }
+
+
 
         [HttpPost]
         public ActionResult Cadastrar(AlunoViewModel alunoVM)
