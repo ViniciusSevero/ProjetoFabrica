@@ -55,7 +55,7 @@ namespace PomodoroTimer.Controllers
                     //sessao tipo de usuario recebe Admin
                     Session["TipoUsuario"] = "ADMIN";
                     //redirecionar pagina para controller Aluno, Cadastrar, #corrigir
-                    return RedirectToAction("Cadastrar", "Aluno");
+                    return RedirectToAction("Listar", "Aluno");
                 }
                 else
                 {

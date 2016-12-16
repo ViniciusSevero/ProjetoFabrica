@@ -3,26 +3,185 @@
     ViewBag.Title = "Listar";
 }
 
-<h2>Listar</h2>
-
-<table class="table table-striped" style="width: 50%">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Rm</th>
-            <th>Nome</th>
-            <th>Curso</th>
-        </tr>
-    </thead>
-    <tbody id="tabela">
-        @foreach(var item in Model)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Rm</td>
-                <td>@item.Nome</td>
-                <td>@item.Curso.Nome</td>
-            </tr>
+@section Estilo{
+    <style>
+        .row {
+            margin-top: 40px;
+            padding: 0 10px;
         }
-    </tbody>
-</table>
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .panel-heading div {
+            margin-top: -18px;
+            font-size: 15px;
+        }
+
+            .panel-heading div span {
+                margin-left: 5px;
+            }
+
+        .panel-body {
+            display: none;
+        }
+
+    </style>
+}
+
+
+
+<div class="container">
+    <h2>Listar</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cursos</h3>
+                    <div class="pull-right">
+                        <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                            <i class="glyphicon glyphicon-filter"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filtrar Cursos" />
+                </div>
+                <table class="table table-hover cursos" id="dev-table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Alunos Matriculados</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Alunos</h3>
+                    <div class="pull-right">
+                        <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                            <i class="glyphicon glyphicon-filter"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <input type="text" class="form-control" id="task-table-filter" data-action="filter" data-filters="#task-table" placeholder="Filter Alunos" />
+                </div>
+                <table class="table table-hover alunos" id="task-table">
+                    <thead>
+                        <tr>
+                            <th>RM</th>
+                            <th>Nome</th>
+                            <th>Curso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script>
+        /**
+    *   I don't recommend using this plugin on large tables, I just wrote it to make the demo useable. It will work fine for smaller tables
+    *   but will likely encounter performance issues on larger tables.
+    *
+    *		<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+    *		$(input-element).filterTable()
+    *
+    *	The important attributes are 'data-action="filter"' and 'data-filters="#table-selector"'
+    */
+        (function(){
+            'use strict';
+            var $ = jQuery;
+            $.fn.extend({
+                filterTable: function(){
+                    return this.each(function(){
+                        $(this).on('keyup', function(e){
+                            $('.filterTable_no_results').remove();
+                            var $this = $(this),
+                                search = $this.val().toLowerCase(),
+                                target = $this.attr('data-filters'),
+                                $target = $(target),
+                                $rows = $target.find('tbody tr');
+
+                            if(search == '') {
+                                $rows.show();
+                            } else {
+                                $rows.each(function(){
+                                    var $this = $(this);
+                                    $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+                                })
+                                if($target.find('tbody tr:visible').size() === 0) {
+                                    var col_count = $target.find('tr').first().find('td').size();
+                                    var no_results = $('<tr class="filterTable_no_results"><td colspan="'+col_count+'">No results found</td></tr>')
+                                    $target.find('tbody').append(no_results);
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+            $('[data-action="filter"]').filterTable();
+        })(jQuery);
+
+        $(function(){
+            // attach table filter plugin to inputs
+            $('[data-action="filter"]').filterTable();
+
+            $('.container').on('click', '.panel-heading span.filter', function(e){
+                var $this = $(this),
+                    $panel = $this.parents('.panel');
+
+                $panel.find('.panel-body').slideToggle();
+                if($this.css('display') != 'none') {
+                    $panel.find('.panel-body input').focus();
+                }
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "http://localhost:39324/Aluno/GetAlunos",
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    $.each(data.lista,function(idx,value){
+                        $(".alunos tbody").append("<tr><td>" + value.Rm + "</td> <td>" + value.Nome + "</td> <td>" + value.Curso+ "</td></tr>")
+                    });
+                    
+                }
+            });
+
+            $.ajax({
+                url: "http://localhost:39324/Aluno/GetCursos",
+                type: "GET",
+                success: function (data) {
+                    console.log(data);
+                    $.each(data.lista, function (idx, value) {
+                        $(".cursos tbody").append("<tr><td>" + value.Nome + "</td> <td>" + value.QtdeAlunos + "</td></tr>")
+                    });
+
+                }
+            });
+        });
+
+    </script>
+
+}

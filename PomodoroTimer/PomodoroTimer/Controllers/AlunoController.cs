@@ -27,22 +27,46 @@ namespace PomodoroTimer.Controllers
             return View(alunoVM);
         }
 
-
-        [HttpGet]
         public ActionResult Listar()
         {
-
-            return Json(GetListAlunos(), JsonRequestBehavior.AllowGet);
+            return View();
         }
 
-
-        private SelectList GetListAlunos()
+        [HttpGet]
+        [PermissoesFiltro(Roles = "ADMIN")]
+        public ActionResult GetAlunos()
         {
-            var lista = _unit.AlunoRepository.Listar();
-            SelectList list = new SelectList(lista);
-            return list;
+
+            List<Aluno> alunos = (List<Aluno>)_unit.AlunoRepository.Listar();
+            List<Object> lista = new List<object>();
+            foreach (var aluno in alunos)
+            {
+                lista.Add(new
+                {
+                    Rm = aluno.Rm,
+                    Nome = aluno.Nome,
+                    Curso = aluno.Curso.Nome
+                });
+            }
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult GetCursos()
+        {
+
+            List<Curso> cursos = (List<Curso>)_unit.CursoRepository.Listar();
+            List<Object> lista = new List<object>();
+            foreach (var curso in cursos)
+            {
+                lista.Add(new
+                {
+                    Nome = curso.Nome,
+                    QtdeAlunos = curso.Aluno.Count
+                });
+            }
+            return Json(new { lista = lista }, JsonRequestBehavior.AllowGet);
+        }
 
 
         [HttpPost]

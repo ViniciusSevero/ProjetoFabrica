@@ -22,23 +22,24 @@ namespace PomodoroTimerService.Controllers
 
             if (param == null)
             {
-               temp = (List<Aluno>) _unit.AlunoRepository.Listar();
-            }else
+                temp = (List<Aluno>)_unit.AlunoRepository.Listar();
+            }
+            else
             {
                 try
                 {
                     int idORrm = Convert.ToInt32(param);
-                    temp = (List<Aluno>) _unit.AlunoRepository.BuscarPor(a => a.Id == idORrm || a.Rm == idORrm);
+                    temp = (List<Aluno>)_unit.AlunoRepository.BuscarPor(a => a.Id == idORrm || a.Rm == idORrm);
                 }
                 catch
                 {
                     string nome = param;
-                    temp = (List<Aluno>) _unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nome));
+                    temp = (List<Aluno>)_unit.AlunoRepository.BuscarPor(a => a.Nome.Contains(nome));
                 }
-              
+
             }
 
-            foreach(var aluno in temp)
+            foreach (var aluno in temp)
             {
                 listaFiltrada.Add(new AlunoDTO()
                 {
@@ -49,7 +50,12 @@ namespace PomodoroTimerService.Controllers
             }
 
             return listaFiltrada;
-            
+
         }
+
+    
     }
+
+
+
 }
