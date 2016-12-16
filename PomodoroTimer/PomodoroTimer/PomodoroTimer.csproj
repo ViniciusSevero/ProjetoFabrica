@@ -157,6 +157,12 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\Mapa.PNG" />
+    <Content Include="Content\images\Passo1.png" />
+    <Content Include="Content\images\Passo2.png" />
+    <Content Include="Content\images\Passo3.png" />
+    <Content Include="Content\images\Passo4.png" />
+    <Content Include="Content\images\Passo5.png" />
+    <Content Include="Content\images\Passo6.png" />
     <Content Include="Content\images\pomodoro-timer.png" />
     <Content Include="Content\images\Pomodoro.jpg" />
     <Content Include="Content\images\tecnica-pomodoro.jpg" />

@@ -109,24 +109,52 @@
 
         */
 
-        #Conceito .titulo{
+        #Conceito .titulo {
             font-size: 52px;
             font-family: 'Gotham Light';
             border-bottom: 1px solid #caa013;
         }
 
-        .texto-conceito{
+        .texto-conceito {
             font-size: 17px;
             font-family: 'Gotham Light';
             text-align: justify;
             font-weight: 600;
             line-height: 30px;
+            color: #3e3e3e;
         }
 
-        .texto-conceito1{
+        .texto-conceito1 {
             margin-top: 10px;
         }
 
+        /*
+
+            COMO FUNCIONA
+
+        */
+        #ComoFunciona .titulo {
+            font-size: 52px;
+            font-family: 'Gotham Light';
+            border-bottom: 1px solid #caa013;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #caa013;
+            padding-bottom: 6px;
+        }
+
+        #ComoFunciona .imagem{
+            width: 110px;
+        }
+
+        .texto-comofunciona{
+            font-size: 16px;
+            font-family: 'Gotham Light';
+            font-weight: 600;
+            margin-top: 50px;
+            text-align: justify;
+        }
         /*
 
             FORMULÁRIO DE CONTATO
@@ -144,6 +172,7 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             text-align: center;
+            color: #caa013;
         }
 
         .caixa-texto {
@@ -179,7 +208,7 @@
             color: white;
             resize: none;
             transition: border-color 0.3s;
-            max-width: 100%; 
+            max-width: 100%;
         }
 
         #form-contato .titulo {
@@ -191,7 +220,7 @@
             height: 50px;
             line-height: 48px;
             border: none;
-            background-color: #fed136;
+            background-color: #caa013;
             color: #fff;
             width: 100%;
             font-size: 13px;
@@ -200,11 +229,11 @@
             letter-spacing: 1px;
             border-radius: 0 !important;
             font-family: 'Open Sans';
-            opacity: .7;
         }
 
             .btn-enviar:hover {
-                opacity: 1;
+                color: #caa013;
+                background-color: #fff;
                 transition: 0.5s;
             }
     </style>
@@ -292,32 +321,38 @@
 <section id="ComoFunciona" style="background-color: #eee">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h2>Como Funciona</h2>
-                <div class="col-md-2" style="height: 200px;">
-
-
-                    <div class="Passo1">Escolha a Sessão</div>
-
-                </div>
-                <div class="col-md-1">
-                    <span class="glyphicon glyphicon-arrow-right"></span>
-                </div>
-                <div class="col-md-2" style="height: 200px;">
-
-                    <div class="Passo1">Escolha a Matéria</div>
-
-                </div>
-                <div class="col-md-2" style="margin-left:-60px; height: 200px;">
-
-                    <div class="Passo1">Execute a Tarefa</div>
-
-                </div>
-                <div class="col-md-2" style="height: 200px;">
-
-                    <div class="Passo1">Descanse</div>
-
-                </div>
+            <h2 class="titulo">Como Funciona</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo1.png" class="imagem"/>
+                <br /><br />
+                <span class="texto-comofunciona">Decida qual tarefa vai realizar.</span>
+            </div>
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo2.png" class="imagem"/>
+                <br /><br />
+                <span class="texto-comofunciona">Configure o cronômetro para <b>25 minutos</b>.</span>
+            </div>
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo3.png" class="imagem" />
+                <br /><br />
+                <span class="texto-comofunciona">Trabalhe na tarefa até o alarme soar.</span>
+            </div>
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo4.png" class="imagem"/>
+                <br /><br />
+                <span class="texto-comofunciona">Faça um <b>intervalo</b> rápido de 5 minutos.</span>
+            </div>
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo5.png" class="imagem" />
+                <br /><br />
+                <span class="texto-comofunciona">Repita os passos 1, 2, 3 e 4.</span>
+            </div>
+            <div class="col-md-2">
+                <img src="~/Content/images/Passo6.png" class="imagem"/>
+                <br /><br />
+                <span class="texto-comofunciona">Faça um <b>intervalo</b> longo de 15-30 min.</span>
             </div>
         </div>
     </div>
@@ -361,38 +396,38 @@
     <div class="container">
         <div class="row">
             <form id="form-contato">
-                    <div class="container col-md-6 col-md-offset-3">
-                        <div class="row">
-                            <p class="titulo">Mande sua Mensagem</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <input type="text" placeholder="Nome" class="caixa-texto" id="form-nome" required style="max-width: 100%;"/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <input type="email" placeholder="Email" class="caixa-texto" id="form-email" required style="max-width: 100%;"/>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <input type="text" placeholder="Telefone" class="caixa-texto" id="form-telefone" name="telefone" style="max-width: 100%;"/>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <textarea placeholder="Mensagem" rows="5" id="form-msg" style="max-width: 100%;"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <button id="enviar" name="enviar" class="btn-enviar">Enviar</button>
-                            </div>
+                <div class="container col-md-6 col-md-offset-3">
+                    <div class="row">
+                        <p class="titulo">Mande sua Mensagem</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <input type="text" placeholder="Nome" class="caixa-texto" id="form-nome" required style="max-width: 100%;" />
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <input type="email" placeholder="Email" class="caixa-texto" id="form-email" required style="max-width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <input type="text" placeholder="Telefone" class="caixa-texto" id="form-telefone" name="telefone" style="max-width: 100%;" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <textarea placeholder="Mensagem" rows="5" id="form-msg" style="max-width: 100%;"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <button id="enviar" name="enviar" class="btn-enviar">Enviar</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
@@ -599,5 +634,5 @@
 
 
     </script>
-}
+    }
 
