@@ -12,7 +12,7 @@ namespace Filtros.Security
         {
             base.OnAuthorization(filterContext);
 
-            //Se o usuário não foi autorizado
+            //Se o usuário não foi autorizado redirecione para a pagina Negado do controller autenticador
             if(filterContext.Result is HttpUnauthorizedResult)
             {
                 filterContext.HttpContext.Response.Redirect("/Autenticador/Negado");

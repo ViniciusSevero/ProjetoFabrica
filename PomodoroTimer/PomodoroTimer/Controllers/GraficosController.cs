@@ -15,30 +15,31 @@ namespace PomodoroTimer.Controllers
         private UnitOfWork _unit = new UnitOfWork();
 
         // GET: Graficos
-
+        
         [PermissoesFiltro(Roles = "ALUNO")]
         [HttpGet]
         public ActionResult Visualizar()
         {
-            TempData["Aluno"] = getAlunoLoginSessao().Nome;
+            TempData["Aluno"] = getAlunoLoginSessao().Nome;//metodo retorna objeto aluno e armazena o nome na variavel TpmData
             return View();
         }
 
-
+        
         [PermissoesFiltro(Roles = "ADMIN")]
         [HttpGet]
         public ActionResult TempoDiario()
         {
             return View(_unit.AlunoRepository.Listar());
         }
-
+        
+        
         [PermissoesFiltro(Roles = "ADMIN")]
         [HttpGet]
         public ActionResult MateriasEstudadas()
         {
             return View(_unit.AlunoRepository.Listar());
         }
-
+    
         [PermissoesFiltro(Roles = "ADMIN")]
         [HttpGet]
         public ActionResult TempoMensal()
@@ -54,6 +55,7 @@ namespace PomodoroTimer.Controllers
             AlunoID = AlunoID == null ? getAlunoLoginSessao().Id : AlunoID;
 
             ICollection<Sessao> sessoes = (ICollection<Sessao>)_unit.SessaoRepository.Listar();
+            //Select sessao where AlunoId = AlunoId
             var query =
                 from sessao in sessoes
                 where sessao.AlunoId == AlunoID
@@ -158,11 +160,12 @@ namespace PomodoroTimer.Controllers
 
         #region UTILS
 
+        //retorna um objeto Aluno, de acordo com o o login localizado
         public Aluno getAlunoLoginSessao()
         {
-            var userName = User.Identity.Name;
-            int loginId = _unit.LoginRepository.BuscarPor(l => l.Username == userName).FirstOrDefault().Id;
-            return _unit.AlunoRepository.BuscarPor(a => a.LoginId == loginId).FirstOrDefault();
+            var userName = User.Identity.Name; //armazena o nome do usuario
+            int loginId = _unit.LoginRepository.BuscarPor(l => l.Username == userName).FirstOrDefault().Id; //retorna o id do Login
+            return _unit.AlunoRepository.BuscarPor(a => a.LoginId == loginId).FirstOrDefault(); //buscar aluno onde loginId = a varivel loginId
         }
 
         [HttpGet]

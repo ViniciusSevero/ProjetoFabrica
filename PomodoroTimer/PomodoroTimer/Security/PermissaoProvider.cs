@@ -50,17 +50,20 @@ namespace PomodoroTimer.Security
         //implementando como obter as permissoes de cada usuario
         public override string[] GetRolesForUser(string username)
         {
-            Entities _ctx = new Entities();
-
-            Login login = _ctx.Login.FirstOrDefault(l => l.Username.Equals(username));
+            Entities _ctx = new Entities();//adicionando um novo contexto
+            
+            //Retorna Usuario localizado, se Usuario constar no banco
+            Login login = _ctx.Login.FirstOrDefault(l => l.Username.Equals(username)); 
 
             if(login == null)
             {
                 return new String[] { };
             }
-
+            
+            //Seleciona as permissoes do usuario - Os modelos estao em Dominio/Models
             List<string> permissoes = login.Permissao.Select(p => p.Permissao1).ToList();
-
+            
+            //Converter para um array
             return permissoes.ToArray();
         }
 
