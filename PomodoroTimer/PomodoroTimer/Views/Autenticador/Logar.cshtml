@@ -7,6 +7,7 @@
         /*
          * Card component
          */
+
         .card {
             background-color: #F7F7F7;
             /* just in case there no content*/
@@ -144,16 +145,29 @@
             padding-bottom: 6px;
         }
 
-        #ComoFunciona .imagem{
+        #ComoFunciona .imagem {
             width: 110px;
         }
 
-        .texto-comofunciona{
-            font-size: 16px;
+        .texto-comofunciona {
+            font-size: 17px;
             font-family: 'Gotham Light';
             font-weight: 600;
             margin-top: 50px;
             text-align: justify;
+        }
+        /*
+
+            GRÁFICOS
+
+        */
+
+        .texto-graficos {
+            font-size: 17px;
+            font-family: 'Gotham Light';
+            text-align: justify;
+            font-weight: 600;
+            margin-top: 140px;
         }
         /*
 
@@ -267,7 +281,7 @@
             <!--Se pagina não for Home -->
             <li>
                 <a href="#">
-                    <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar">
+                    <span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#modalLogar" style="font-family: font-family: 'Gotham Light';">
                         Entrar
                     </span>
                 </a>
@@ -325,12 +339,12 @@
         </div>
         <div class="row">
             <div class="col-md-2">
-                <img src="~/Content/images/Passo1.png" class="imagem"/>
+                <img src="~/Content/images/Passo1.png" class="imagem" />
                 <br /><br />
                 <span class="texto-comofunciona">Decida qual tarefa vai realizar.</span>
             </div>
             <div class="col-md-2">
-                <img src="~/Content/images/Passo2.png" class="imagem"/>
+                <img src="~/Content/images/Passo2.png" class="imagem" />
                 <br /><br />
                 <span class="texto-comofunciona">Configure o cronômetro para <b>25 minutos</b>.</span>
             </div>
@@ -340,7 +354,7 @@
                 <span class="texto-comofunciona">Trabalhe na tarefa até o alarme soar.</span>
             </div>
             <div class="col-md-2">
-                <img src="~/Content/images/Passo4.png" class="imagem"/>
+                <img src="~/Content/images/Passo4.png" class="imagem" />
                 <br /><br />
                 <span class="texto-comofunciona">Faça um <b>intervalo</b> rápido de 5 minutos.</span>
             </div>
@@ -350,7 +364,7 @@
                 <span class="texto-comofunciona">Repita os passos 1, 2, 3 e 4.</span>
             </div>
             <div class="col-md-2">
-                <img src="~/Content/images/Passo6.png" class="imagem"/>
+                <img src="~/Content/images/Passo6.png" class="imagem" />
                 <br /><br />
                 <span class="texto-comofunciona">Faça um <b>intervalo</b> longo de 15-30 min.</span>
             </div>
@@ -361,7 +375,6 @@
         GRÁFICOS - SEÇÃO 3
 
     -->
-
 </section>
 <section id="secao3">
     <div class="container">
@@ -369,15 +382,14 @@
             <div class="col-lg-6">
                 <div id="chart_div"></div>
             </div>
-            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
-
-                <p>Através deste gráfico, você consegue ter informações sobre o tempo de estudo por matéria</p>
-                <p>Você vai consegui organizar seu tempo melhor, controlando o tempo de estudo em cada matéria .</p>
+            <div class="col-md-6">
+                <p class="texto-graficos">Através deste gráfico, você consegue ter informações sobre o tempo de estudo por matéria</p>
+                <p class="texto-graficos" style="margin-top: 50px !important;">Você vai consegui organizar seu tempo melhor, controlando o tempo de estudo em cada matéria .</p>
             </div>
         </div><!--Fim row-->
         <div class="row">
-            <div class="col-lg-6" style="font-size: 24px; margin-top: 120px;">
-                <p>Você vai conseguir avaliar o seu desempenho de outras maneiras, acompanhando mês a mês a sua evolução com os estudos.</p>
+            <div class="col-md-6">
+                <p class="texto-graficos">Você vai conseguir avaliar o seu desempenho de outras maneiras, acompanhando mês a mês a sua evolução com os estudos.</p>
             </div>
             <div class="col-lg-6">
                 <div id="chart_div2" class="media-object"></div>
@@ -516,17 +528,18 @@
                 }
                 <!--
                 @MyHelper.MessageError(Model.Msg)-->
+                     </div>
+            <!-- /c
             </div>
-            <!-- /card-contain
+            ard-contain
             </div>
             er -->
-            </d
-            iv>
-            <!--Fim cont
-            </div><!--Fim container-->
-        </div><!--Fim modal-dialog-->
-    </div><!--Fim modal-->
-    @section Scripts{
+            </div>
+        </div>
+        <!--Fim container-->
+    </div><!--Fim modal-dialog-->
+</div><!--Fim modal-->
+@section Scripts{
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="~/Scripts/jquery.easing.min.js"></script>
@@ -634,5 +647,5 @@
 
 
     </script>
-    }
+}
 

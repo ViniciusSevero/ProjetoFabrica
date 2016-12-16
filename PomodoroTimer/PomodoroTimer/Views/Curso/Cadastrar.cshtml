@@ -4,25 +4,104 @@
     ViewBag.Title = "Cadastrar";
 }
 
+@section Estilo{
+    <style>
+        /*
 
-<div class="container">
+            FORMULÁRIO DE CADASTRO
 
-    <h2>Cadastrar Curso</h2>
+        */
+        body{
+            background-color: #f7f7f7;
+        }
 
-    @MyHelper.Message(Model.Msg)
+        .container {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
 
-    @using (@Html.BeginForm())
-    {
+        .titulo {
+            font-family: 'Gotham Light';
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #caa013;
+            font-weight: 600;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Nome)
-            @Html.TextBoxFor(m => m.Nome, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Nome)
-        </div>
+        .textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            margin-bottom: 24px;
+            border-radius: 0;
+            padding: 16px 20px;
+            font-family: 'Gotham Light';
+            font-size: 15px;
+            color: #333;
+            resize: none;
+            transition: border-color 0.3s;
+            max-width: 100%;
+        }
 
-        @MyHelper.Button("Cadastrar", "btn btn-primary")
+        .cadastro{
+            margin-top: 50px;
+            padding: 35px 20px;
+            color: #333;
+        }
+
+        .btn-enviar {
+            height: 50px;
+            line-height: 48px;
+            border: none;
+            background-color: #caa013;
+            color: #fff;
+            width: 100%;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 0 !important;
+            font-family: 'Open Sans';
+            margin-left: 130px;
+            margin-top: 30px;
+        }
+
+            .btn-enviar:hover {
+                color: #caa013;
+                background-color: #fff;
+                transition: 0.5s;
+            }
+
+         .box{
+
+         }
+    </style>
     }
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 box">
+            <h2 class="titulo">Cadastrar Curso</h2>
+            @MyHelper.Message(Model.Msg)
+            <div class="cadastro">
+                @using (@Html.BeginForm())
+            {
 
+                    <div class="form-group" style="font-family: 'Gotham Light';">
+                        @Html.LabelFor(m => m.Nome)
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "textarea"})
+                        @Html.ValidationMessageFor(m => m.Nome)
+                    </div>
+
+                    @MyHelper.Button("Cadastrar", "btn btn-enviar")
+                }
+
+            </div>
+        </div>
+    </div>
 </div>
 
     @section Scripts{

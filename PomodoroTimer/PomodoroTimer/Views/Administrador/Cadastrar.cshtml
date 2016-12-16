@@ -3,49 +3,125 @@
 @{
     ViewBag.Title = "Cadastrar";
 }
+@section Estilo{
+    <style>
+        /*
 
+            FORMULÁRIO DE CADASTRO
+
+        */
+        body {
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 70px;
+            margin-bottom: 70px;
+        }
+
+        .titulo {
+            font-family: 'Gotham Light';
+            font-size: 32px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-align: center;
+            color: #caa013;
+            font-weight: 600;
+        }
+
+        .textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            margin-bottom: 24px;
+            border-radius: 0;
+            padding: 16px 20px;
+            font-family: 'Gotham Light';
+            font-size: 15px;
+            color: #333;
+            resize: none;
+            transition: border-color 0.3s;
+            max-width: 100%;
+        }
+
+        .cadastro {
+            margin-top: 50px;
+            padding: 35px 20px;
+            color: #333;
+        }
+
+        .btn-enviar {
+            height: 50px;
+            line-height: 48px;
+            border: none;
+            background-color: #caa013;
+            color: #fff;
+            width: 100%;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 0 !important;
+            font-family: 'Open Sans';
+            margin-left: 130px;
+            margin-top: 30px;
+        }
+
+            .btn-enviar:hover {
+                color: #caa013;
+                background-color: #fff;
+                transition: 0.5s;
+            }
+
+        .formulario {
+            margin-top: 80px;
+        }
+    </style>
+}
 <div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2 class="titulo">Cadastrar Administrador</h2>
+            <div class="formulario">
+                @MyHelper.Message(Model.Msg)
+                @using (@Html.BeginForm())
+            {
 
-    <h2>Cadastrar Administrador</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" style="font-family: 'Gotham Light';">
+                                @Html.LabelFor(m => m.Username)
+                                @Html.TextBoxFor(m => m.Username, new { @class = "textarea" })
+                                @Html.ValidationMessageFor(m => m.Username)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" style="font-family: 'Gotham Light';">
+                                @Html.LabelFor(m => m.Senha)
+                                @Html.TextBoxFor(m => m.Senha, new { @class = "textarea" })
+                                @Html.ValidationMessageFor(m => m.Senha)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" style="font-family: 'Gotham Light';">
+                                @Html.Label("Digite sua senha novamente")
+                                @Html.TextBox("Senha2", null, new { @class = "textarea" })
+                                @Html.ValidationMessage("Senha2")
+                            </div>
+                        </div>
+                    </div>
 
-
-
-    @MyHelper.Message(Model.Msg)
-
-    @using (@Html.BeginForm())
-    {
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Username)
-                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Username)
-                </div>
+                    @MyHelper.Button("Cadastrar", "btn btn-enviar")
+                }
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Senha)
-                    @Html.TextBoxFor(m => m.Senha, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(m => m.Senha)
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    @Html.Label("Digite sua senha novamente")
-                    @Html.TextBox("Senha2", null, new { @class = "form-control" })
-                    @Html.ValidationMessage("Senha2")
-                </div>
-            </div>
-        </div>
-
-        @MyHelper.Button("Cadastrar", "btn btn-primary")
-    }
-
+    </div>
 </div>
 
 @section Scripts{
